@@ -50,6 +50,49 @@ El proyecto sigue la arquitectura **MVC (Modelo-Vista-Controlador)** con las sig
 
 1. **Clonar el repositorio:**
 
-```bash
+``bash
 git clone https://github.com/tu-usuario/inventory-management-system.git
-cd inventory-management-system
+cd inventory-management-system``
+
+2. **Instalar dependencias del backend y frontend:**
+
+# Backend
+``bash
+cd server
+npm install``
+
+# Frontend
+cd ../client
+npm install
+
+3. **Configurar la base de datos:**
+
+# Backend
+``bash
+DB_HOST=localhost
+DB_USER=root
+DB_PASS=password
+DB_NAME=inventory_db``
+
+4. **Iniciar la aplicación:**
+
+# Backend
+``bash
+#Backend (desde la carpeta /server)
+npm start``
+
+``bash
+#Frontend (desde la carpeta /client)
+npm run dev``
+
+## 🖥️ **Uso**
+
+- **Proveedor:** Puede acceder a la aplicación para gestionar inventarios, realizar pedidos de reabastecimiento, y generar reportes de productos y stock.
+- **Panel de control:** Muestra gráficas y estadísticas en tiempo real sobre el estado del inventario.
+
+---
+
+## 🔗 **Enlaces**
+
+- [Documentación de API](#)
+- [Despliegue en producción](#)
