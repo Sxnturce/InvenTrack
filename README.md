@@ -1,6 +1,6 @@
 # 🏪 **Inventory Management System for Retail Stores** 
 
-![Sistema de Gestión de Inventarios](img.jpg)
+![Sistema de Gestión de Inventarios](https://philna.sh/_astro/node.DvAuachI.png)
 
 ## **Descripción general** 📋
 
@@ -89,7 +89,7 @@ El proyecto sigue la arquitectura **MVC (Modelo-Vista-Controlador)** con las sig
 ---
 # 🖥️ Uso
 
-Proveedor: 
+**Proveedor:** 
 - Puede acceder a la aplicación para gestionar inventarios, realizar pedidos de reabastecimiento, y generar reportes de productos y stock.
   Panel de control: Muestra gráficas y estadísticas en tiempo real sobre el estado del inventario.
 ---
