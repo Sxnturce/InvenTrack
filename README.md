@@ -47,45 +47,40 @@ El proyecto sigue la arquitectura **MVC (Modelo-Vista-Controlador)** con las sig
 
 1. **Clonar el repositorio:**
 
-    ``bash
-    git clone https://github.com/tu-usuario/inventory-management-system.git
-    cd inventory-management-system``
+       git clone https://github.com/Sxnturce/InvenTrack.git
+       cd inventory-management-system
 
 2. **Instalar dependencias del backend y frontend:**
 
 - Backend
-
-  ``bash
-  cd server
-  npm install``
-
+    
+      cd server
+      npm install
+        
 - Frontend
-  
-  ``bash
-  cd ../client
-  npm install``
+      
+      cd ../client
+      npm install
 
 3. **Configurar la base de datos:**
 
-   ``  DB_HOST=localhost ``
-   
-   ``  DB_USER=root  ``
-   
-   `` DB_PASS=password ``
-   
-   `` DB_NAME=inventory_db ``
+       DB_HOST=localhost 
+       
+       DB_USER=root 
+       
+       DB_PASS=password
+       
+       DB_NAME=inventory_db
       
 5. **Configurar la base de datos:**
 
 - Backend (desde la carpeta /server)
-
-  ``bash
-  npm start``
-
+    
+      npm start
+    
 - Frontend (desde la carpeta /client)
-  
-  ``bash
-  npm run dev``
+      
+      npm run dev
 ---
 # 🖥️ Uso
 
@@ -96,5 +91,3 @@ El proyecto sigue la arquitectura **MVC (Modelo-Vista-Controlador)** con las sig
 # 🔗 Enlaces
   - Documentación de API
   - Despliegue en producción
----
-
