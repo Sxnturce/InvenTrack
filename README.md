@@ -2,25 +2,22 @@
 
 ![Sistema de Gestión de Inventarios](img.jpg)
 
-### **Descripción general** 📋
+## **Descripción general** 📋
 
 Este es un sistema **centralizado** de gestión de inventarios desarrollado para un grupo de tiendas minoristas. El sistema permite a cada tienda actualizar el estado de su inventario en **tiempo real**, generar **reportes de stock**, realizar **pedidos de reabastecimiento**, y sincronizar con un sistema de ventas para ajustar automáticamente el inventario. La aplicación está diseñada para **proveedores** que gestionan las existencias de productos en diferentes tiendas.
 
 ---
 
-## **📂 Estructura del Proyecto**
+# **📂 Estructura del Proyecto**
 
 El proyecto sigue la arquitectura **MVC (Modelo-Vista-Controlador)** con las siguientes capas:
-
-
-
 
 - **Client:** Contiene el frontend, desarrollado con React y conectado a un backend.
 - **Server:** Contiene la lógica del backend, manejado por Node.js con Sequelize como ORM para la base de datos MySQL.
 
 ---
 
-## **🚀 Características clave del sistema**
+# **🚀 Características clave del sistema**
 
 - **Actualización en tiempo real:** Cada tienda puede actualizar el estado de su inventario inmediatamente.
 - **Reportes de stock:** Generación de reportes dinámicos sobre las existencias actuales.
@@ -29,7 +26,7 @@ El proyecto sigue la arquitectura **MVC (Modelo-Vista-Controlador)** con las sig
 
 ---
 
-## **🔧 Tecnologías utilizadas**
+# **🔧 Tecnologías utilizadas**
 
 - **Frontend:** ![#61dafb](https://via.placeholder.com/15/61dafb/000000?text=+) `React`, ![#38bdf8](https://via.placeholder.com/15/38bdf8/000000?text=+) `Tailwind CSS`, ![#646cff](https://via.placeholder.com/15/646cff/000000?text=+) `Vite`
 - **Backend:** ![#83cd29](https://via.placeholder.com/15/83cd29/000000?text=+) `Node.js`, ![#00d8ff](https://via.placeholder.com/15/00d8ff/000000?text=+) `Sequelize ORM`
@@ -38,7 +35,7 @@ El proyecto sigue la arquitectura **MVC (Modelo-Vista-Controlador)** con las sig
 
 ---
 
-## **🛠️ Instalación**
+# **🛠️ Instalación**
 
 ### **Requisitos previos**
 
@@ -50,49 +47,54 @@ El proyecto sigue la arquitectura **MVC (Modelo-Vista-Controlador)** con las sig
 
 1. **Clonar el repositorio:**
 
-``bash
-git clone https://github.com/tu-usuario/inventory-management-system.git
-cd inventory-management-system``
+    ``bash
+    git clone https://github.com/tu-usuario/inventory-management-system.git
+    cd inventory-management-system``
 
 2. **Instalar dependencias del backend y frontend:**
 
-# Backend
-``bash
-cd server
-npm install``
+- Backend
 
-# Frontend
-cd ../client
-npm install
+  ``bash
+  cd server
+  npm install``
+
+- Frontend
+  
+  ``bash
+  cd ../client
+  npm install``
 
 3. **Configurar la base de datos:**
 
-# Backend
-``bash
-DB_HOST=localhost
-DB_USER=root
-DB_PASS=password
-DB_NAME=inventory_db``
+   ``  DB_HOST=localhost ``
+   
+   ``  DB_USER=root  ``
+   
+   `` DB_PASS=password ``
+   
+   `` DB_NAME=inventory_db ``
+      
+5. **Configurar la base de datos:**
 
-4. **Iniciar la aplicación:**
+- Backend (desde la carpeta /server)
 
-# Backend
-``bash
-#Backend (desde la carpeta /server)
-npm start``
+  ``bash
+  npm start``
 
-``bash
-#Frontend (desde la carpeta /client)
-npm run dev``
+- Frontend (desde la carpeta /client)
+  
+  ``bash
+  npm run dev``
+---
+# 🖥️ Uso
 
-## 🖥️ **Uso**
-
-- **Proveedor:** Puede acceder a la aplicación para gestionar inventarios, realizar pedidos de reabastecimiento, y generar reportes de productos y stock.
-- **Panel de control:** Muestra gráficas y estadísticas en tiempo real sobre el estado del inventario.
-
+Proveedor: 
+- Puede acceder a la aplicación para gestionar inventarios, realizar pedidos de reabastecimiento, y generar reportes de productos y stock.
+  Panel de control: Muestra gráficas y estadísticas en tiempo real sobre el estado del inventario.
+---
+# 🔗 Enlaces
+  - Documentación de API
+  - Despliegue en producción
 ---
 
-## 🔗 **Enlaces**
-
-- [Documentación de API](#)
-- [Despliegue en producción](#)
