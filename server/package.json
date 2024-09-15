@@ -1,0 +1,32 @@
+{
+	"name": "server-inventrack",
+	"version": "1.0.0",
+	"description": "This is a project for a chain of warehouses of a retail company.",
+	"main": "app.js",
+	"type": "module",
+	"scripts": {
+		"dev": "nodemon app.js",
+		"start": "node app.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Sxnturce/InvenTrack.git"
+	},
+	"author": "SebastianSR",
+	"license": "UNLICENCED",
+	"bugs": {
+		"url": "https://github.com/Sxnturce/InvenTrack/issues"
+	},
+	"homepage": "https://github.com/Sxnturce/InvenTrack#readme",
+	"devDependencies": {
+		"nodemon": "3.1.4"
+	},
+	"dependencies": {
+		"cors": "2.8.5",
+		"dotenv": "16.4.5",
+		"express": "4.21.0",
+		"mysql2": "3.11.3",
+		"nodemailer": "6.9.15",
+		"sequelize": "6.37.3"
+	}
+}
