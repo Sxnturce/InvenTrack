@@ -4,7 +4,31 @@ Este proyecto sigue el patrón **Modelo-Vista-Controlador (MVC)** para organizar
 
 ## 📂 Estructura del Proyecto
 
-- (Aqui iría la estructura del proyecot)
+```
+└── 📁server
+    └── 📁controllers
+        └── userController.js
+    └── 📁helpers
+        └── conexionDB.js
+    └── 📁http
+        └── api.http
+    └── 📁models
+        └── 📁database
+            └── database.js
+            └── Usuario.js
+        └── 📁user
+            └── Usuario.js
+    └── 📁routes
+        └── userRoutes.js
+    └── 📁schemes
+        └── userValidate.js
+    └── .env
+    └── .gitignore
+    └── app.js
+    └── package-lock.json
+    └── package.json
+    └── readme.md
+```
 
 ## 🚀 Estructura de **app.js**
 
