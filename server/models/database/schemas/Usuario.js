@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
-import db from "./database.js";
+import generateToken from "../../../helpers/Token.js";
+import db from "../database.js";
 
 const userSchemma = db.define('usuarios', {
   nombre_usuario: {
@@ -17,6 +18,14 @@ const userSchemma = db.define('usuarios', {
   },
   fecha_registro: {
     type: DataTypes.TIME,
+  },
+  token: {
+    type: DataTypes.STRING(),
+    defaultValue: generateToken()
+  },
+  confirmado: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
   }
 })
 

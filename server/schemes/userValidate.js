@@ -29,3 +29,7 @@ const userValidateSchemma = z.object({
 export const userValidate = (object) => {
   return userValidateSchemma.safeParse(object)
 }
+
+export const userValidatePartial = (object) => {
+  return userValidateSchemma.partial({ nombre: true }).safeParse(object)
+}

@@ -1,8 +1,28 @@
+### Login User
 POST http://localhost:4000/api/user/
+content-type: application/json
+Cookie: access_token=52352352352532dsaf
+
+{
+  "correo": "correox@correo.com",
+  "pass": "1234555"
+}
+
+### Create User
+POST http://localhost:4000/api/user/register
 content-type: application/json
 
 {
   "nombre": "Sebastian",
-  "correo": "correo@correo.com",
+  "correo": "correox@correo.com",
   "pass": "1234555"
 }
+
+### Confirm Email
+GET  http://localhost:4000/api/user/confirm-email/fgytqctrweajsrvn1vz77b
+
+
+###* RUTAS PROTEGIDAS
+
+### Ir al dashboard
+GET  http://localhost:4000/api/user/dashboard

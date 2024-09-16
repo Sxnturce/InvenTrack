@@ -1,4 +1,5 @@
-import userSchemma from "../database/Usuario.js"
+import bcrypt from "bcryptjs"
+import userSchemma from "../database/schemas/Usuario.js"
 
 class Usuario {
   static async existEmail(email) {
@@ -8,12 +9,27 @@ class Usuario {
     })
     return userFind
   }
+
+  static async comprobatePass(pass, user) {
+    const comprobation = await bcrypt.compare(pass, user.contrasena)
+    return comprobation
+  }
+
+  static async comprobateToken(token) {
+    const tokenFind = await userSchemma.findOne({
+      where: { token }
+    })
+    return tokenFind
+  }
+
   static async createUser(obj) {
     const { nombre, correo, pass } = obj
+    const crypted = await bcrypt.hash(pass, 10)
+
     const user = await userSchemma.create({
       nombre_usuario: nombre,
       correo: correo,
-      contrasena: pass
+      contrasena: crypted
     })
     return user
   }
