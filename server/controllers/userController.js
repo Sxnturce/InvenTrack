@@ -28,8 +28,9 @@ export class User {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
+      path: `/api/user/dashboard`,
       maxAge: 1000 * 60 * 60
-    }).json({ user, token })
+    })
   }
 
   static confirmEmail = async (req, res) => {

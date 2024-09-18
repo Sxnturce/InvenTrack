@@ -1,7 +1,6 @@
 ### Login User
 POST http://localhost:4000/api/user/
 content-type: application/json
-Cookie: access_token=52352352352532dsaf
 
 {
   "correo": "correox@correo.com",
@@ -22,7 +21,5 @@ content-type: application/json
 GET  http://localhost:4000/api/user/confirm-email/fgytqctrweajsrvn1vz77b
 
 
-###* RUTAS PROTEGIDAS
-
-### Ir al dashboard
+### RUTAS PROTEGIDAS 🔐 (Ingresar Dashboard)
 GET  http://localhost:4000/api/user/dashboard

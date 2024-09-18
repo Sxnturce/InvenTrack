@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv"
 import router from "./routes/userRoutes.js";
+import routerAdmin from "./routes/adminRoutes.js"
 import connectDB from "./helpers/conexionDB.js";
 import pc from "picocolors"
 import cookieParser from "cookie-parser";
@@ -22,4 +23,5 @@ server.listen(port, () => {
 
 
 //Middleware para la ruta de la API
-server.use("/api/user/", router) 
+server.use("/api/user/", router)
+server.use("/api/admin/dashboard", routerAdmin) 

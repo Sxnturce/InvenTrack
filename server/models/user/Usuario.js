@@ -10,6 +10,13 @@ class Usuario {
     return userFind
   }
 
+  static async comprobateID(id) {
+    const userFind = await userSchemma.findOne({
+      where: { id }
+    })
+    return userFind
+  }
+
   static async comprobatePass(pass, user) {
     const comprobation = await bcrypt.compare(pass, user.contrasena)
     return comprobation
