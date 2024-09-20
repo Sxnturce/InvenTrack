@@ -23,6 +23,15 @@ const userSchemma = db.define('usuarios', {
     type: DataTypes.STRING(),
     defaultValue: generateToken()
   },
+  token_pass: {
+    type: DataTypes.INTEGER(),
+    defaultValue: null,
+    validate: {
+      isInt: true,
+      min: 100000,
+      max: 999999
+    }
+  },
   confirmado: {
     type: DataTypes.BOOLEAN,
     defaultValue: false

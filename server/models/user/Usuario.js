@@ -40,6 +40,18 @@ class Usuario {
     })
     return user
   }
+
+  static async hashPassword(newPass) {
+    const passwordHashed = await bcrypt.hash(newPass, 10)
+    return passwordHashed
+  }
+
+  static async existTokenPass(token_pass) {
+    const userFind = await userSchemma.findOne({
+      where: { token_pass }
+    })
+    return userFind
+  }
 }
 
 
