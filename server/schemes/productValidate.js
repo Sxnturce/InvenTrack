@@ -20,7 +20,7 @@ const productValidateSchemma = z.object({
     required_error: "Este campo es obligatorio."
   }).min(1).int(),
 
-  estado_stock: z.enum(["Bajo", "Adecuado", "Suficiente"], {
+  estado_stock: z.enum(["bajo", "adecuado", "suficiente"], {
     invalid_type_error: "El estado ingresado no es correcto.",
     required_error: "Este campo es requerido"
   })

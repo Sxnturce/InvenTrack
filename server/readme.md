@@ -6,21 +6,40 @@ Este proyecto sigue el patrón **Modelo-Vista-Controlador (MVC)** para organizar
 
 ```
 └── 📁server
+    └── 📁config
+        └── jwt.js
     └── 📁controllers
+        └── adminController.js
         └── userController.js
     └── 📁helpers
         └── conexionDB.js
+        └── emailConfirmation.js
+        └── emailReport.js
+        └── Token.js
     └── 📁http
         └── api.http
+    └── 📁middlewares
+        └── auth.js
+        └── cors.js
     └── 📁models
         └── 📁database
+            └── 📁schemas
+                └── Pedido.js
+                └── Productos.js
+                └── Tipo.js
+                └── Usuario.js
             └── database.js
-            └── Usuario.js
         └── 📁user
+            └── Pedido.js
+            └── Producto.js
+            └── Tipo.js
             └── Usuario.js
     └── 📁routes
+        └── adminRoutes.js
         └── userRoutes.js
     └── 📁schemes
+        └── PedidoValidate.js
+        └── productValidate.js
         └── userValidate.js
     └── .env
     └── .gitignore
