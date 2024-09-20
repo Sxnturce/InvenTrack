@@ -27,10 +27,10 @@ export class User {
     res.cookie('access_token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "none",
       path: `/api/user/dashboard`,
       maxAge: 1000 * 60 * 60
-    })
+    }).json(token)
   }
 
   static confirmEmail = async (req, res) => {
