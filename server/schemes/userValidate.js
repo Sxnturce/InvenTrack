@@ -24,8 +24,14 @@ const userValidateSchemma = z.object({
   }).max(36, {
     message: "Como maximo son 36 caracteres."
   }),
-})
 
+  ventas_totales: z.number({
+    invalid_type_error: "El precio debe ser un número.",
+    required_error: "Este campo es requerido",
+  }).positive("El precio debe ser mayor que 0").refine((value) => Number(value.toFixed(2)) === value, {
+    message: "El precio debe tener hasta dos decimales.",
+  }).optional()
+})
 
 const tokenPassSchemma = z.object({
   token_pass: z.number({

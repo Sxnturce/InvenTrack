@@ -35,6 +35,10 @@ const userSchemma = db.define('usuarios', {
   confirmado: {
     type: DataTypes.BOOLEAN,
     defaultValue: false
+  },
+  ventas_totales: {
+    type: DataTypes.DECIMAL(10, 2),
+    defaultValue: 0
   }
 })
 

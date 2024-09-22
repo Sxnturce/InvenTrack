@@ -5,6 +5,7 @@ const tipoSchemma = db.define('tipos', {
   nombre: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true
   }
 })
 

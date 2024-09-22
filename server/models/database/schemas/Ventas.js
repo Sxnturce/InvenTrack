@@ -1,26 +1,26 @@
 import { DataTypes } from "sequelize";
 import db from "../database.js";
 
-const productosSchemma = db.define('productos', {
-  nombre: {
-    type: DataTypes.STRING,
+const ventasSchemma = db.define('ventas', {
+  usuario_id: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
-  tipo_id: {
+  producto_id: {
     type: DataTypes.INTEGER,
+    allowNull: false,
   },
   cantidad: {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  precio: {
+  fecha_venta: {
+    type: DataTypes.TIME,
+  },
+  total_venta: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false
-  },
-  estado_stock: {
-    type: DataTypes.ENUM('Bajo', 'Adecuado', 'Suficiente'),
-    defaultValue: "Adecuado",
   }
 })
 
-export default productosSchemma
+export default ventasSchemma
