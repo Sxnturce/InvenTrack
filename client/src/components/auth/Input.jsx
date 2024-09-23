@@ -2,7 +2,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
-function Input({ text, type, name, repet, event, value }) {
+function Input({
+	text,
+	type,
+	name,
+	repet,
+	event,
+	value,
+	errMsg,
+	code,
+	length,
+}) {
 	const [state, setState] = useState(true);
 
 	return (
@@ -13,7 +23,13 @@ function Input({ text, type, name, repet, event, value }) {
 				</label>
 				<div className="relative w-full flex items-center">
 					<input
-						className="px-2 py-1 md:py-[0.45rem] ring-2 ring-gray-200 rounded outline-none focus:ring-[#434091] w-full "
+						className={`px-2 py-1 md:py-[0.45rem] ring-2 ${
+							code
+								? length.length > 5
+									? "focus:ring-green-500"
+									: "focus:ring-red-500"
+								: "focus:ring-[#434091]"
+						} ring-gray-200 rounded outline-none  w-full `}
 						type={
 							type === "email"
 								? "email"
@@ -41,6 +57,7 @@ function Input({ text, type, name, repet, event, value }) {
 						/>
 					)}
 				</div>
+				{errMsg && <p className="text-sm text-red-600">{errMsg}</p>}
 			</div>
 		</>
 	);

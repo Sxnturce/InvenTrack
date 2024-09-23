@@ -1,12 +1,93 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { userValidatePartial } from "../validate/userValidate.js";
 import Input from "../components/auth/Input";
 import Image from "../components/auth/partials/Image";
 import Button from "../components/auth/partials/Button";
 import Optional from "../components/auth/partials/Optional";
 import Playground from "../components/auth/partials/Playground";
 import login_img from "/login_img.svg";
+import AlertSmall from "../helpers/alerts/AlertSmallError.js";
+import Alert from "../helpers/alerts/Alert.js";
+import clientAxios from "../config/Axios";
 
 function Login() {
+	const [email, setEmail] = useState("");
+	const [pass, setPass] = useState("");
+
+	const [errEmail, setErrEmail] = useState("");
+	const [errPass, setErrPass] = useState("");
+	const formRef = useRef(null);
+	const navigate = useNavigate();
+	const location = useLocation();
+
+	useEffect(() => {
+		function isUpdated() {
+			const { update } = location.state || {};
+			if (update) {
+				Alert(
+					"Contraseña actualizada",
+					"Su contraseña se actualizo correctamente",
+					true,
+					true
+				);
+				return;
+			}
+		}
+		isUpdated();
+	}, []);
+
+	useEffect(() => {
+		setErrEmail("");
+		setErrPass("");
+	}, [email, pass]);
+
+	async function handleSubmit(e) {
+		e.preventDefault();
+		const result = userValidatePartial({
+			correo: email,
+			pass: pass,
+		});
+
+		if (!result.success) {
+			const { issues } = result.error;
+
+			if (issues[0].path[0] === "correo") {
+				setErrEmail(issues[0].message);
+				return;
+			}
+
+			if (issues[0].path[0] === "pass") {
+				setErrPass(issues[0].message);
+				return;
+			}
+		}
+
+		try {
+			await clientAxios.post(
+				"user",
+				{
+					correo: result.data.correo,
+					pass: result.data.pass,
+				},
+				{ withCredentials: true }
+			);
+			formRef.current.reset();
+			resetStates();
+			return navigate("/admin/dashboard");
+		} catch (e) {
+			const { msg } = e.response?.data;
+			if (e.response.status === 404) return setErrEmail(msg);
+			if (e.response.status === 400) return setErrPass(msg);
+			AlertSmall(msg, "");
+		}
+	}
+
+	function resetStates() {
+		setEmail("");
+		setPass("");
+	}
 	return (
 		<>
 			<section className="bg-white p-4 md:p-8 rounded flex flex-col gap-6  max-w-[550px] lg:max-w-none mx-auto w-full">
@@ -19,11 +100,34 @@ function Login() {
 						de la empresa <strong>InvenTrack</strong>.
 					</p>
 				</div>
-				<div className="flex flex-col gap-6">
-					<Input text="Email" name="email" type="email" />
-					<Input text="Contraseña" name="password" type="password" />
+				<form
+					className="flex flex-col gap-6"
+					ref={formRef}
+					onSubmit={handleSubmit}
+					method="POST"
+				>
+					<Input
+						text="Email"
+						name="email"
+						type="email"
+						value={email}
+						event={(e) => {
+							setEmail(e.target.value);
+						}}
+						errMsg={errEmail}
+					/>
+					<Input
+						text="Contraseña"
+						name="password"
+						type="password"
+						value={pass}
+						event={(e) => {
+							setPass(e.target.value);
+						}}
+						errMsg={errPass}
+					/>
 					<Button value={"Login"} />
-				</div>
+				</form>
 				<div className="flex justify-between text-[0.8rem] text-center sm:text-sm text-gray-500 underline ">
 					<Link to={"/register"}>¿No tienes una cuenta? Registrate</Link>
 					<Link to={"/olvide-password"}>¿Olvidaste tu contraseña?</Link>

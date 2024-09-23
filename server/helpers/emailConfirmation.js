@@ -34,7 +34,7 @@ async function sendEmail(user) {
           </div>
           <p>Si tienes alguna duda, no dudes en contactarnos.</p>
           <p>
-            <a href="${process.env.FRONT_URL}/confirm-email/${token}"
+            <a href="${process.env.FRONT_URL}/confirmation/${token}"
                style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">
               Confirmar tu cuenta
             </a>

@@ -1,25 +1,62 @@
 import { Link, redirect, useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { tokenPassValidate } from "../validate/tokenValidate.js";
 import Input from "../components/auth/Input";
 import Image from "../components/auth/partials/Image";
 import Button from "../components/auth/partials/Button";
+import AlertSmall from "../helpers/alerts/AlertSmallError.js";
+import clientAxios from "../config/Axios";
 import security from "/security.svg";
-import { useState } from "react";
 
 function ComprobateCode() {
-	const navigate = useNavigate();
 	const [code, setCode] = useState("");
-	function handleChane({ target: { value } }) {
-		const sanitized = value.replace(/\D/g, "").slice(0, 4);
+	const [length, setLength] = useState(0);
+	const [errPass, setErrPass] = useState("");
+
+	const formRef = useRef(null);
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		setErrPass("");
+	}, [code]);
+
+	function handleChange({ target: { value } }) {
+		const sanitized = value.replace(/\D/g, "").slice(0, 6);
+		setLength(sanitized);
 		setCode(sanitized);
 	}
 
 	async function handleSubmit(e) {
 		e.preventDefault();
-		if (code.length === 4) {
-			navigate(`/change-pass/${code}`);
+		const result = tokenPassValidate({ token_pass: Number(code) });
+
+		if (!result.success) {
+			const { issues } = result.error;
+
+			if (issues[0].path[0] === "token_pass") {
+				setErrPass(issues[0].message);
+				return;
+			}
+		}
+
+		try {
+			await clientAxios.post("user/comprobate-token-pass", {
+				token_pass: result.data.token_pass,
+			});
+			formRef.current.reset();
+			resetStates();
+			return navigate(`/change-pass/${result.data.token_pass}`, {
+				state: { validate: true },
+			});
+		} catch (e) {
+			const { err } = e.response?.data;
+			setErrPass(err);
 		}
 	}
 
+	function resetStates() {
+		setCode("");
+	}
 	return (
 		<>
 			<section className="bg-white p-4 md:p-8 rounded flex flex-col gap-12  max-w-[550px] lg:max-w-none mx-auto w-full justify-center mt-24 md:mt-0">
@@ -32,12 +69,19 @@ function ComprobateCode() {
 						<strong>InvenTrack</strong>.
 					</p>
 				</div>
-				<form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+				<form
+					className="flex flex-col gap-6"
+					onSubmit={handleSubmit}
+					ref={formRef}
+				>
 					<Input
 						text="Codigo de verificacion"
 						name="code"
-						event={handleChane}
+						event={handleChange}
 						value={code}
+						code={true}
+						length={length}
+						errMsg={errPass}
 					/>
 					<Button value={"Comprobar codigo"} />
 				</form>

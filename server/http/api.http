@@ -22,4 +22,4 @@ GET  http://localhost:4000/api/user/confirm-email/fgytqctrweajsrvn1vz77b
 
 
 ### RUTAS PROTEGIDAS 🔐 (Ingresar Dashboard)
-GET  http://localhost:4000/api/user/dashboard
+GET  http://localhost:4000/api/admin/dashboard

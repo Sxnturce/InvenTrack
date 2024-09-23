@@ -1,11 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Image from "../components/auth/partials/Image";
+import clientAxios from "../config/Axios";
 import success from "/success.svg";
 import notFound from "/error.svg";
-import { useState } from "react";
 
 function ValidateToken() {
 	const [confirmed, setConfirmed] = useState(false);
+	const { token } = useParams();
+
+	useEffect(() => {
+		async function comprobateToken() {
+			try {
+				await clientAxios.get(`/user/confirm-email/${token}`);
+				setConfirmed(true);
+			} catch (e) {
+				setConfirmed(false);
+			}
+		}
+		comprobateToken();
+	}, []);
 	return (
 		<>
 			<section className="bg-white p-4 md:p-8 rounded flex flex-col gap-12  max-w-[550px] lg:max-w-none mx-auto w-full justify-center mt-24 md:mt-0">

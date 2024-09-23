@@ -14,11 +14,11 @@ export class User {
 
     const user = await Usuario.existEmail(result.data.correo)
     if (!user) {
-      return res.status(404).json({ msg: "El correo no existe" })
+      return res.status(404).json({ msg: "El correo ingresado no existe." })
     }
 
     if (!user.confirmado) {
-      return res.status(400).json({ msg: "El usuario no confirmo su cuenta." })
+      return res.status(401).json({ msg: "El usuario no confirmo su cuenta." })
     }
     const comprobate = await Usuario.comprobatePass(result.data.pass, user)
     if (!comprobate) {
@@ -29,10 +29,9 @@ export class User {
     res.cookie('access_token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "none",
-      path: `/api/user/dashboard`,
+      sameSite: "lax",
       maxAge: 1000 * 60 * 60
-    }).json(token)
+    }).json({ msg: "Token successfull" })
   }
 
   static confirmEmail = async (req, res) => {
@@ -85,10 +84,10 @@ export class User {
 
     const user = await Usuario.existEmail(result.data.correo)
     if (!user) {
-      return res.json({ msg: "El correo ingresado no esta registrado." })
+      return res.status(404).json({ msg: "El correo ingresado no esta registrado." })
     }
     if (!user.confirmado) {
-      return res.json({ msg: "El correo ingresado no esta confirmado." })
+      return res.status(401).json({ msg: "El correo ingresado no esta confirmado." })
     }
 
     try {
@@ -108,10 +107,10 @@ export class User {
       return res.status(400).json({ err: result.error })
     }
     const user = await Usuario.existTokenPass(result.data.token_pass)
-    if (user) {
-      return res.status(200).json(user)
+    if (!user) {
+      return res.status(400).json({ err: "El token ingresado no es valido." })
     }
-    res.json({ msg: "El token ingresado no es valido." })
+    res.status(200).json(user)
   }
 
   static changePassword = async (req, res) => {

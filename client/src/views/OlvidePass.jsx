@@ -1,10 +1,54 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { emailPassValidate } from "../validate/tokenValidate.js";
 import Input from "../components/auth/Input";
 import Image from "../components/auth/partials/Image";
 import Button from "../components/auth/partials/Button";
 import forgot from "/forgot_img.webp";
+import clientAxios from "../config/Axios";
 
 function OlvidePass() {
+	const [email, setEmail] = useState("");
+	const [errEmail, setErrEmail] = useState("");
+	const formRef = useRef(null);
+
+	const navigate = useNavigate();
+	useEffect(() => {
+		setErrEmail("");
+	}, [email]);
+
+	async function handleSubmit(e) {
+		e.preventDefault();
+		const result = emailPassValidate({
+			correo: email,
+		});
+
+		if (!result.success) {
+			const { issues } = result.error;
+
+			if (issues[0].path[0] === "correo") {
+				setErrEmail(issues[0].message);
+				return;
+			}
+		}
+
+		try {
+			await clientAxios.post("user/forgot-pass", {
+				correo: result.data.correo,
+			});
+			formRef.current.reset();
+			resetStates();
+			return navigate("/comprobation");
+		} catch (e) {
+			const { msg } = e.response?.data;
+			setErrEmail(msg);
+		}
+	}
+
+	function resetStates() {
+		setEmail("");
+	}
 	return (
 		<>
 			<section className="bg-white p-4 md:p-8 rounded flex flex-col gap-12  max-w-[550px] lg:max-w-none mx-auto w-full justify-center mt-24 md:mt-0">
@@ -18,10 +62,24 @@ function OlvidePass() {
 						recuperes tu cuenta.
 					</p>
 				</div>
-				<div className="flex flex-col gap-6">
-					<Input text="Email" name="email" type="email" />
+				<form
+					className="flex flex-col gap-6"
+					method="POST"
+					onSubmit={handleSubmit}
+					ref={formRef}
+				>
+					<Input
+						text="Email"
+						name="email"
+						type="email"
+						value={email}
+						errMsg={errEmail}
+						event={(e) => {
+							setEmail(e.target.value);
+						}}
+					/>
 					<Button value={"Solicitar codigo"} />
-				</div>
+				</form>
 				<div className="flex justify-between text-[0.8rem] text-center sm:text-sm text-gray-500 underline ">
 					<Link to={"/"}>Regresar a la pagina principal</Link>
 					<Link to={"/comprobation"}>¿Ya tienes un codigo?</Link>
