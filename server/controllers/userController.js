@@ -31,7 +31,7 @@ export class User {
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       maxAge: 1000 * 60 * 60
-    }).json({ msg: "Token successfull" })
+    }).json({ msg: "Token successfull", token: token })
   }
 
   static confirmEmail = async (req, res) => {

@@ -2,6 +2,14 @@ import bcrypt from "bcryptjs"
 import userSchemma from "../database/schemas/Usuario.js"
 
 class Usuario {
+  static async getTop5UsersBySales() {
+    const topUsers = await userSchemma.findAll({
+      order: [['ventas_totales', 'DESC']],
+      limit: 5
+    });
+    return topUsers;
+  }
+
   static async existEmail(email) {
     const correo = email
     const userFind = await userSchemma.findOne({

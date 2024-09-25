@@ -1,19 +1,27 @@
+import { productValidate } from "../schemes/productValidate.js";
+import { pedidoValidate, partialPedidoValidate } from "../schemes/PedidoValidate.js";
+import { ventaValidate } from "../schemes/VentaValidate.js";
+import db from "../models/database/database.js";
 import Producto from "../models/user/Producto.js"
 import Pedido from "../models/user/Pedido.js";
 import Tipo from "../models/user/Tipo.js";
 import Usuario from "../models/user/Usuario.js";
+import TipoStats from "../models/user/TipoStats.js";
+import ProductStats from "../models/user/ProductStats.js"
 import sendEmailReport from "../helpers/emailReport.js";
-import { productValidate } from "../schemes/productValidate.js";
-import { pedidoValidate, partialPedidoValidate } from "../schemes/PedidoValidate.js";
 import Ventas from "../models/user/Ventas.js";
-import { ventaValidate } from "../schemes/VentaValidate.js";
+import methodDecimal from "../helpers/MethodDecimal.js";
 
 class Admin {
   static dashboard = async (req, res) => {
     const user = req.usuario.dataValues
     try {
       const products = await Producto.getAll();
-      return res.json({ productos: products, usuario: user })
+      const topUserSales = await Usuario.getTop5UsersBySales();
+      const topSellType = await TipoStats.getTopSellingType();
+      const topSellProduct = await ProductStats.getTopSellingProduct();
+
+      return res.json({ usuario: user, productos: products, topUserSales: topUserSales, topSellProduct: topSellProduct, topSellType: topSellType })
     } catch (e) {
       res.status(401).json({ err: "No esta authorizado para realizar esta acción." })
     }
@@ -176,7 +184,7 @@ class Admin {
   }
 
   //Ventas
-  static getVentas = async (req, res) => {
+  static getVentas = async (_, res) => {
     try {
       const ventas = await Ventas.getAll()
       return res.json(ventas)
@@ -209,25 +217,64 @@ class Admin {
     }
 
     //Obtenemos el precio del producto
-    const { precio } = producto
+    const { precio, tipo_id } = producto
     const num = precio * cantidad
-    const total_venta = Math.round((num + Number.EPSILON) * 100) / 100
+    const total_venta = methodDecimal(num)
 
     //Convertimos el user ventas a float para efectual la suma
     user.ventas_totales = parseFloat(user.ventas_totales) || 0;
     user.ventas_totales += total_venta;
+    user.cantidad_vendida += cantidad
     producto.cantidad -= cantidad
 
-    //Creamos un objeto para almacenarlo
-    const toCreate = { ...result.data, total_venta }
+    const t = await db.transaction();
+
+    //Actualizamos las tablas de stats
     try {
-      const venta = await Ventas.createVenta(toCreate)
-      await user.save()
-      await producto.save();
+      const tipoStats = await TipoStats.existId(tipo_id);
+      const productoStats = await ProductStats.existId(producto_id);
+
+      if (!tipoStats) {
+        await TipoStats.createTipoStat(
+          { tipo_id: tipo_id, total_vendido: cantidad, total_dinero: total_venta },
+          { transaction: t }
+        );
+      } else {
+        tipoStats.total_dinero = parseFloat(tipoStats.total_dinero) || 0;
+        tipoStats.total_dinero += total_venta;
+        tipoStats.total_vendido += cantidad;
+        await tipoStats.save({ transaction: t });
+      }
+
+      if (!productoStats) {
+        await ProductStats.createProductStat(
+          { producto_id: producto_id, total_vendido: cantidad, total_dinero: total_venta },
+          { transaction: t }
+        );
+      } else {
+        productoStats.total_dinero = parseFloat(productoStats.total_dinero) || 0;
+        productoStats.total_dinero += total_venta;
+        productoStats.total_vendido += cantidad;
+        await productoStats.save({ transaction: t });
+      }
+
+      //Creamos un objeto para almacenarlo
+      const toCreate = { ...result.data, total_venta }
+      const venta = await Ventas.createVenta(toCreate, { transaction: t })
+
+      await user.save({ transaction: t })
+      await producto.save({ transaction: t });
+      await t.commit();
+
       return res.json({ msg: "Venta realizada correctamente", venta: venta })
     } catch (e) {
-      return res.status(400).json({ err: e })
+      await t.rollback();
+      return res.status(400).json({ msg: "Error al realizar la venta" })
     }
+  }
+
+  static clearCookie = async (req, res) => {
+    res.clearCookie("access_token").json({ msg: "Logout Successfull" })
   }
 }
 

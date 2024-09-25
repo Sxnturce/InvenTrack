@@ -39,6 +39,10 @@ const userSchemma = db.define('usuarios', {
   ventas_totales: {
     type: DataTypes.DECIMAL(10, 2),
     defaultValue: 0
+  },
+  cantidad_vendida: {
+    type: DataTypes.INTEGER(),
+    defaultValue: 0
   }
 })
 

@@ -16,7 +16,7 @@ export async function auth(req, res, next) {
     req.usuario = user
     return next();
   } catch (e) {
-    return res.status(401).json({ err: "Token inválido o sesión no válida." })
+    return res.status(401).json({ err: "Token inválido." })
   }
 
 }

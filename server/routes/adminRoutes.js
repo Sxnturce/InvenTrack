@@ -18,4 +18,7 @@ router.patch("/generar-pedido/:id", auth, Admin.updateReport)
 //Realizar venta
 router.get("/ventas", auth, Admin.getVentas)
 router.post("/create-venta", auth, Admin.createVenta)
+
+//Logout
+router.post("/logout", auth, Admin.clearCookie)
 export default router
