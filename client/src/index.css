@@ -35,3 +35,19 @@
 	background: #9e2020b6;
 	color: white;
 }
+
+.popup::before {
+	content: "";
+	border: 10px solid transparent;
+	border-left-color: #fff;
+	border-top-color: #fff;
+	position: absolute;
+	border-radius: 3px;
+	top: -8px;
+	right: 15px;
+	-webkit-box-shadow: -5px -5px 12px -2px rgba(0, 0, 0, 0.3);
+	box-shadow: -5px -5px 12px -2px rgba(0, 0, 0, 0.3);
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+	z-index: 1002;
+}
