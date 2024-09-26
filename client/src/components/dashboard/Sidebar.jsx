@@ -17,7 +17,9 @@ function Sidebar({ state }) {
 		<>
 			<aside
 				className={`bg-color-main fixed w-full flex-shrink-0 flex-grow-0 basis-[250px] ${
-					!state ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
+					!state
+						? "-translate-x-full opacity-0  lg:translate-x-0 lg:opacity-100"
+						: "lg:-translate-x-full lg:opacity-0  translate-x-0 opacity-100"
 				} transition-all ease-linear max-w-[250px] h-full px-2 py-4 `}
 			>
 				<section>

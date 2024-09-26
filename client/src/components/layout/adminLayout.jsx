@@ -19,8 +19,8 @@ function AdminLayout() {
 			<section className="flex w-full mt-[76.4px]">
 				<Sidebar state={change} />
 				<main
-					className={`bg-green-600 w-full ${
-						!change ? "ml-[250px]" : "ml-0"
+					className={`w-full p-4 sm:p-6  ${
+						!change ? "ml-0 lg:ml-[250px]" : "ml-0"
 					} transition-all ease-in-out`}
 				>
 					<Outlet />
