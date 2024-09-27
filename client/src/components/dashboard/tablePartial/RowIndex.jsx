@@ -18,7 +18,7 @@ function RowIndex({ product, tipo, estado, cantidad, id }) {
 						{estado}
 					</p>
 				</td>
-				<td className="p-3">{cantidad}</td>
+				<td className="p-3">{cantidad} ud.</td>
 				<td className="p-3 flex gap-4">
 					<button
 						data-id={id}

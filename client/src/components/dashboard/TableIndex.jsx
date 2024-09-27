@@ -1,14 +1,25 @@
 import Row from "./tablePartial/RowIndex";
 import Icon from "./partials/Icon";
-import { faBox } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBox, faAdd } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 function TableIndex() {
 	return (
 		<>
-			<div className="flex gap-4 items-center">
-				<Icon ico={faBox} type={"Categoria"} />
-				<h1 className="text-[#525252] text-xl">Productos en el almacen</h1>
-			</div>
+			<section className="flex justify-between items-center mt-10">
+				<div className="flex gap-4 items-center ">
+					<Icon ico={faBox} type={"Categoria"} />
+					<h1 className="text-[#525252] text-xl">Productos en el almacen</h1>
+				</div>
+				<Link
+					to={"/admin/crear-producto"}
+					className="flex items-center justify-center px-3 py-[0.5rem] bg-green-500 hover:bg-green-600 transition-all ease-in-out text-white text-[1rem] rounded shadow"
+				>
+					<FontAwesomeIcon icon={faAdd} className="mr-2" />
+					Add product
+				</Link>
+			</section>
 			<section className="w-full overflow-x-auto">
 				<table className="w-full bg-white border border-gray-200 rounded-lg min-w-[800px] shadow">
 					<thead className=" text-gray-900 bg-[#f7f7f7] text-left">

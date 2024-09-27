@@ -29,24 +29,24 @@ function Sidebar({ state }) {
 							<ul className="flex flex-col gap-1">
 								<LinkSidebar text={"Dashboard"} icon={faHome} to={"/admin"} />
 								<LinkSidebar
+									text={"Reporte"}
+									icon={faClipboardList}
+									to={"/admin/reporte"}
+								/>
+								<LinkSidebar
 									text={"Vender Producto"}
 									icon={faCartShopping}
 									to={"/admin/crear-producto"}
 								/>
 								<LinkSidebar
-									text={"Categorias"}
-									icon={faClipboardList}
-									to={"/admin/categorias"}
-								/>
-								<LinkSidebar
-									text={"Reporte Stock"}
+									text={"Historial de Reportes"}
 									icon={faCircleExclamation}
-									to={"/admin/reportes"}
+									to={"/admin/list-reports"}
 								/>
 								<LinkSidebar
 									text={"Historial de Ventas"}
 									icon={faClock}
-									to={"/admin/ventas"}
+									to={"/admin/list-ventas"}
 								/>
 							</ul>
 						</div>

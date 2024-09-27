@@ -7,6 +7,12 @@ const router = Router()
 router.route("/").get(auth, Admin.dashboard).post(auth, Admin.findCategory)
 router.post("/create", auth, Admin.createProduct)
 
+//HOME ENDPOINTS
+router.get("/all-tipes", auth, Admin.allTipes)
+router.get("/get-top-users", auth, Admin.getTopUsers)
+router.get("/get-top-product", auth, Admin.getTopProduct)
+router.get("/get-top-tipo", auth, Admin.getTopTipe)
+
 //CRUD productos
 router.route("/product/:id").get(auth, Admin.getProduct).put(auth, Admin.updateProduct).delete(auth, Admin.deleteProduct)
 

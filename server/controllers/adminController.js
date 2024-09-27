@@ -17,13 +17,45 @@ class Admin {
     const user = req.usuario.dataValues
     try {
       const products = await Producto.getAll();
-      const topUserSales = await Usuario.getTop5UsersBySales();
-      const topSellType = await TipoStats.getTopSellingType();
-      const topSellProduct = await ProductStats.getTopSellingProduct();
-
-      return res.json({ usuario: user, productos: products, topUserSales: topUserSales, topSellProduct: topSellProduct, topSellType: topSellType })
+      return res.json({ usuario: user, productos: products })
     } catch (e) {
       res.status(401).json({ err: "No esta authorizado para realizar esta acción." })
+    }
+  }
+
+  static getTopUsers = async (req, res) => {
+    try {
+      const topUserSales = await Usuario.getTop5UsersBySales();
+      return res.json({ topUserSales: topUserSales })
+    } catch (e) {
+      res.status(401).json({ err: "No esta authorizado para realizar esta acción." })
+    }
+  }
+
+  static getTopProduct = async (req, res) => {
+    try {
+      const topSellProduct = await ProductStats.getTopSellingProduct();
+      return res.json({ topSellProduct: topSellProduct })
+    } catch (e) {
+      res.status(401).json({ err: "No esta authorizado para realizar esta acción." })
+    }
+  }
+
+  static getTopTipe = async (req, res) => {
+    try {
+      const topSellType = await TipoStats.getTopSellingType();
+      return res.json({ topSellType: topSellType })
+    } catch (e) {
+      res.status(401).json({ err: "No esta authorizado para realizar esta acción." })
+    }
+  }
+
+  static allTipes = async (req, res) => {
+    try {
+      const tipos = await Tipo.getAll()
+      res.json(tipos)
+    } catch (e) {
+      res.status(401).json({ msg: "Error al obtener los tipos." })
     }
   }
 

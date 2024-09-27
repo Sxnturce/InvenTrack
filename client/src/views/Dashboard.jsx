@@ -8,7 +8,7 @@ import { faHome } from "@fortawesome/free-solid-svg-icons";
 function Dashboard() {
 	return (
 		<>
-			<section className="flex flex-col gap-8 max-w-[1450px] mx-auto">
+			<section className="flex flex-col gap-9 max-w-[1450px] mx-auto">
 				<div className="flex gap-4 items-center text-[#525252]">
 					<Icon ico={faHome} />
 					<h1 className="text-xl">DashBoard - InvenTrack</h1>

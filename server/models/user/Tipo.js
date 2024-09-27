@@ -5,6 +5,11 @@ class Tipo {
     const tipos = await tipoSchemma.findOne({ where: { nombre } })
     return tipos
   }
+
+  static async getAll() {
+    const categories = await tipoSchemma.findAll()
+    return categories
+  }
 }
 
 export default Tipo;
