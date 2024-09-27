@@ -55,3 +55,39 @@
 tr:nth-child(even) {
 	background-color: #f7f7f7;
 }
+.solicitud:nth-child(even) {
+	background-color: #f3f3ff;
+}
+
+.ventas:nth-child(even) {
+	background-color: #f6fff6;
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.3rem;
+	margin-top: 0.8rem;
+	background: rgb(255, 252, 252);
+	padding: 1rem;
+	max-width: max-content;
+	margin: 1rem auto 1rem auto;
+	li {
+		a {
+			background-color: #ffffff;
+			border-radius: 5px;
+			padding: 0.62rem 1rem;
+		}
+	}
+	.active_page {
+		a {
+			background-color: #2e52f3;
+			color: white;
+		}
+	}
+	.previus,
+	.next {
+		color: rgb(97, 91, 91);
+	}
+}

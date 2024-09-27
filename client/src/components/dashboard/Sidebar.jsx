@@ -1,13 +1,13 @@
 import {
 	faHome,
 	faCircleExclamation,
-	faCartShopping,
 	faClock,
 	faClipboardList,
 	faShield,
 	faFilter,
 	faRightFromBracket,
 	faGear,
+	faBuildingLock,
 } from "@fortawesome/free-solid-svg-icons";
 import LinkSidebar from "./partials/Link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,7 +16,7 @@ function Sidebar({ state }) {
 	return (
 		<>
 			<aside
-				className={`bg-color-main fixed w-full flex-shrink-0 flex-grow-0 basis-[250px] ${
+				className={`bg-color-main px-4 fixed w-full flex-shrink-0 flex-grow-0 basis-[250px] ${
 					!state
 						? "-translate-x-full opacity-0  lg:translate-x-0 lg:opacity-100"
 						: "lg:-translate-x-full lg:opacity-0  translate-x-0 opacity-100"
@@ -27,26 +27,29 @@ function Sidebar({ state }) {
 						<div className="flex flex-col gap-6 ">
 							<h2 className="text-gray-400 text-sm">Navigation</h2>
 							<ul className="flex flex-col gap-1">
-								<LinkSidebar text={"Dashboard"} icon={faHome} to={"/admin"} />
 								<LinkSidebar
-									text={"Reporte"}
+									text={"Dashboard"}
+									icon={faHome}
+									to={"/admin"}
+									end={"/"}
+								/>
+								<LinkSidebar
+									text={"Acciones"}
 									icon={faClipboardList}
-									to={"/admin/reporte"}
+									to={"/admin/actions"}
+									end={"/actions"}
 								/>
 								<LinkSidebar
-									text={"Vender Producto"}
-									icon={faCartShopping}
-									to={"/admin/crear-producto"}
-								/>
-								<LinkSidebar
-									text={"Historial de Reportes"}
-									icon={faCircleExclamation}
-									to={"/admin/list-reports"}
+									text={"Solicitud de productos"}
+									icon={faBuildingLock}
+									to={"/admin/order-request"}
+									end={"/order-request"}
 								/>
 								<LinkSidebar
 									text={"Historial de Ventas"}
 									icon={faClock}
 									to={"/admin/list-ventas"}
+									end={"/list-ventas"}
 								/>
 							</ul>
 						</div>

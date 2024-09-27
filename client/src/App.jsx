@@ -8,6 +8,9 @@ import ComprobateCode from "./views/ComprobateCode";
 import ChangePass from "./views/ChangePass";
 import ValidateToken from "./views/ValidateToken";
 import Dashboard from "./views/Dashboard";
+import Acciones from "./views/Acciones";
+import Solicitud from "./views/Solicitudes";
+import Ventas from "./views/Ventas";
 
 function App() {
 	return (
@@ -24,6 +27,9 @@ function App() {
 					</Route>
 					<Route element={<AdminLayout />} path="/admin">
 						<Route index element={<Dashboard />} />
+						<Route path="/admin/actions" element={<Acciones />} />
+						<Route path="/admin/order-request" element={<Solicitud />} />
+						<Route path="/admin/list-ventas" element={<Ventas />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>

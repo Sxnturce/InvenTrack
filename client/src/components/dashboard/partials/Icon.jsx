@@ -11,6 +11,10 @@ function Icon({ ico, type }) {
 						? "bg-blue-400"
 						: type === "Seller"
 						? "bg-color-main"
+						: type === "Solicitud"
+						? "bg-blue-500"
+						: type === "Ventas"
+						? "bg-emerald-500"
 						: "bg-green-500"
 				} text-white px-3 py-2 rounded`}
 			>

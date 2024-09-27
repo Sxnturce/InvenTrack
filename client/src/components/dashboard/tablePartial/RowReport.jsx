@@ -1,8 +1,8 @@
-function RowIndex({ product, tipo, estado, cantidad, id }) {
+function RowReport({ product, tipo, stock, id }) {
 	const stateStock =
-		estado === "Bajo"
+		stock === "Bajo"
 			? "bg-gray-500"
-			: estado === "Adecuado"
+			: stock === "Adecuado"
 			? "bg-green-400"
 			: "bg-sky-500";
 	return (
@@ -13,24 +13,25 @@ function RowIndex({ product, tipo, estado, cantidad, id }) {
 				<td className="p-3">{tipo}</td>
 				<td className="p-3">
 					<p
-						className={`${stateStock} px-2 py-1 rounded-lg max-w-max text-xs text-white text-center`}
+						className={`${stateStock} px-2 py-[0.20rem] rounded-lg max-w-max text-xs text-white text-center`}
 					>
-						{estado}
+						{stock}
 					</p>
 				</td>
-				<td className="p-3">{cantidad} ud.</td>
-				<td className="p-3 flex gap-4">
+				<td>
 					<button
 						data-id={id}
 						className="py-1 px-2 rounded bg-amber-500 text-white  text-sm text-center"
 					>
-						Editar
+						Generar Reporte
 					</button>
+				</td>
+				<td>
 					<button
-						delete-id={id}
-						className="py-1 px-2 rounded bg-red-600 text-white text-center text-sm"
+						data-id={id}
+						className="py-1 px-2 rounded bg-blue-500 text-white  text-sm text-center"
 					>
-						Eliminar
+						Vender
 					</button>
 				</td>
 			</tr>
@@ -38,4 +39,4 @@ function RowIndex({ product, tipo, estado, cantidad, id }) {
 	);
 }
 
-export default RowIndex;
+export default RowReport;
