@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 function RowIndex({ product, tipo, estado, cantidad, id }) {
 	const stateStock =
 		estado === "Bajo"
@@ -20,12 +21,12 @@ function RowIndex({ product, tipo, estado, cantidad, id }) {
 				</td>
 				<td className="p-3">{cantidad} ud.</td>
 				<td className="p-3 flex gap-4">
-					<button
-						data-id={id}
+					<Link
+						to={`/admin/product/${id}`}
 						className="py-1 px-2 rounded bg-amber-500 text-white  text-sm text-center"
 					>
 						Editar
-					</button>
+					</Link>
 					<button
 						delete-id={id}
 						className="py-1 px-2 rounded bg-red-600 text-white text-center text-sm"

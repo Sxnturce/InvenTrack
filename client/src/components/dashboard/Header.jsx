@@ -3,6 +3,7 @@ import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import logoInventory from "/inventoryLogo.webp";
 import profilePhoto from "/profile.png";
 import Options from "./partials/Options";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
 function Header({ children, change }) {
@@ -17,7 +18,7 @@ function Header({ children, change }) {
 							: " lg:bg-color-main lg:text-white bg-gray-100 text-black"
 					} `}
 				>
-					<div className="flex gap-2 items-center">
+					<Link to={"/admin"} className="flex gap-2 items-center">
 						<img
 							src={logoInventory}
 							alt="logo-invenTrack"
@@ -28,7 +29,7 @@ function Header({ children, change }) {
 						<h2 className="text-lg">
 							Inven<span className="font-black">Track</span>
 						</h2>
-					</div>
+					</Link>
 					{children}
 				</section>
 				<div className="p-4 flex gap-6 items-center relative ">

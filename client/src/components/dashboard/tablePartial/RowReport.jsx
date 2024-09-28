@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function RowReport({ product, tipo, stock, id }) {
 	const stateStock =
 		stock === "Bajo"
@@ -27,12 +29,12 @@ function RowReport({ product, tipo, stock, id }) {
 					</button>
 				</td>
 				<td>
-					<button
-						data-id={id}
+					<Link
+						to={`/admin/sell-product/${id}`}
 						className="py-1 px-2 rounded bg-blue-500 text-white  text-sm text-center"
 					>
 						Vender
-					</button>
+					</Link>
 				</td>
 			</tr>
 		</>

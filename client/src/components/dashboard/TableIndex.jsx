@@ -38,7 +38,7 @@ function TableIndex() {
 					<h1 className="text-[#525252] text-xl">Productos en el almacen</h1>
 				</div>
 				<Link
-					to={"/admin/crear-producto"}
+					to={"/admin/product"}
 					className="flex items-center justify-center px-3 py-[0.5rem] bg-green-500 hover:bg-green-600 transition-all ease-in-out text-white text-[1rem] rounded shadow"
 				>
 					<FontAwesomeIcon icon={faAdd} className="mr-2" />
