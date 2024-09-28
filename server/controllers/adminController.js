@@ -23,6 +23,7 @@ class Admin {
     }
   }
 
+  //Tops
   static getTopUsers = async (req, res) => {
     try {
       const topUserSales = await Usuario.getTop5UsersBySales();
@@ -56,6 +57,20 @@ class Admin {
       res.json(tipos)
     } catch (e) {
       res.status(401).json({ msg: "Error al obtener los tipos." })
+    }
+  }
+
+  static getTipo = async (req, res) => {
+    const { id } = req.params
+
+    try {
+      const tipo = await Tipo.getByID(id)
+      if (!tipo) {
+        return res.status(400).json({ err: "Producto inexistente." })
+      }
+      res.json(tipo)
+    } catch (e) {
+      res.status(404).json({ err: "Error al intentar buscar un tipo" })
     }
   }
 
@@ -111,7 +126,6 @@ class Admin {
     } catch (e) {
       res.status(404).json({ err: "Error al intentar buscar un producto" })
     }
-
   }
 
   static updateProduct = async (req, res) => {

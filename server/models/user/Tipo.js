@@ -6,6 +6,11 @@ class Tipo {
     return tipos
   }
 
+  static async getByID(id) {
+    const tipo = await tipoSchemma.findOne({ where: { id } })
+    return tipo
+  }
+
   static async getAll() {
     const categories = await tipoSchemma.findAll()
     return categories

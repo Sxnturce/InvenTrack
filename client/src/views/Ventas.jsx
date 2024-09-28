@@ -38,7 +38,7 @@ function Ventas() {
 			</section>
 			<section className="w-full overflow-x-auto lg:overflow-hidden">
 				<table className="w-full bg-white border border-gray-200 rounded-lg min-w-[800px] shadow">
-					<thead className=" text-gray-900 bg-[#f6fff6] text-left">
+					<thead className=" text-gray-900 bg-emerald-200 text-left">
 						<tr className="ventas">
 							<th className="p-4 font-semibold">#</th>
 							<th className="p-4 font-semibold">Usuario</th>

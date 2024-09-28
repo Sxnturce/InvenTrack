@@ -10,9 +10,32 @@ import {
 	faBuildingLock,
 } from "@fortawesome/free-solid-svg-icons";
 import LinkSidebar from "./partials/Link";
+import clientAxios from "../../config/Axios";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 function Sidebar({ state }) {
+	const { setAuth } = useContext(AuthContext);
+	const navigate = useNavigate();
+	async function logout() {
+		try {
+			const result = await clientAxios.post(
+				"admin/dashboard/logout",
+				{},
+				{
+					withCredentials: true,
+				}
+			);
+			if (result.status === 200) {
+				setAuth(false);
+				return navigate("/");
+			}
+		} catch (e) {
+			console.log(e);
+		}
+	}
 	return (
 		<>
 			<aside
@@ -48,8 +71,8 @@ function Sidebar({ state }) {
 								<LinkSidebar
 									text={"Historial de Ventas"}
 									icon={faClock}
-									to={"/admin/list-ventas"}
-									end={"/list-ventas"}
+									to={"/admin/lista-ventas"}
+									end={"/lista-ventas"}
 								/>
 							</ul>
 						</div>
@@ -73,6 +96,7 @@ function Sidebar({ state }) {
 								/>
 								<button
 									className={`w-full text-white flex justify-between items-center px-2 py-3 rounded text-[0.90rem]s`}
+									onClick={logout}
 								>
 									Logout
 									<FontAwesomeIcon icon={faRightFromBracket} />

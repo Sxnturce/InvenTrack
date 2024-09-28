@@ -4,10 +4,16 @@ import logoInventory from "/inventoryLogo.webp";
 import profilePhoto from "/profile.png";
 import Options from "./partials/Options";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 
 function Header({ children, change }) {
 	const [active, setActive] = useState(false);
+	const { user, loading } = useContext(AuthContext);
+	if (!loading) {
+		console.log(user);
+	}
+
 	return (
 		<>
 			<header className="w-full fixed top-0 flex justify-between z-10 shadow-md bg-gray-100">
@@ -37,7 +43,7 @@ function Header({ children, change }) {
 						<img src={profilePhoto} alt="profile-photo" className="w-full" />
 					</picture>
 					<div className="flex gap-4 items-center px-2 z-10">
-						<p className="select-none font-medium">Genesis Aracelis</p>
+						<p className="select-none font-medium">{user.nombre_usuario}</p>
 						<FontAwesomeIcon
 							icon={!active ? faChevronDown : faChevronUp}
 							onClick={() => {

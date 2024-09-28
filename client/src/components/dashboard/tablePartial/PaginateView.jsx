@@ -1,17 +1,17 @@
 import Row from "./RowIndex";
-
-function Pagination({ currentItems }) {
+function Pagination({ currentItems, tipes }) {
 	return (
 		<>
 			{currentItems &&
-				currentItems.map((bird) => (
+				currentItems.map((product) => (
 					<Row
-						key={bird.id}
-						product={bird.name}
-						tipo={bird.diet}
-						cantidad={bird.wingspan_cm}
-						id={bird.id}
-						estado={"Adecuado"}
+						key={product.id}
+						product={product.nombre}
+						tipo={product.tipo_id}
+						cantidad={product.cantidad}
+						id={product.id}
+						estado={product.estado_stock}
+						arr={tipes}
 					/>
 				))}
 		</>

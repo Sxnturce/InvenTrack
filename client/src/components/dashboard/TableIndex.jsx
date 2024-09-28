@@ -5,28 +5,31 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Pagination from "./tablePartial/PaginateView";
 import PaginateCount from "./tablePartial/PaginateCount";
+import getData from "../../helpers/getData.js";
 
 function TableIndex() {
-	const [data, setData] = useState([]);
+	const [tipes, setTipos] = useState([]);
+	const [products, setProducts] = useState([]);
 	const [itemOffset, setItemOffset] = useState(0);
 	const itemsPerPage = 10;
 
 	useEffect(() => {
-		const url = "https://freetestapi.com/api/v1/birds?limit=30";
-		async function getData() {
-			const result = await fetch(url);
-			const birds = await result.json();
-			setData(birds);
+		async function getTipos() {
+			try {
+				const tipos = await getData("all-tipes");
+				setTipos(tipos.data);
+			} catch (e) {
+				console.log(e);
+			}
 		}
-		getData();
+		getTipos();
 	}, []);
-
 	const endOffset = itemOffset + itemsPerPage;
-	const currentItems = data.slice(itemOffset, endOffset);
-	const pageCount = Math.ceil(data.length / itemsPerPage);
+	const currentItems = products.slice(itemOffset, endOffset);
+	const pageCount = Math.ceil(products.length / itemsPerPage);
 
 	const handlePageClick = (event) => {
-		const newOffset = (event.selected * itemsPerPage) % data.length;
+		const newOffset = (event.selected * itemsPerPage) % products.length;
 		setItemOffset(newOffset);
 	};
 
@@ -49,7 +52,9 @@ function TableIndex() {
 				<table className="w-full bg-white border border-gray-200 rounded-lg min-w-[800px] shadow">
 					<thead className=" text-gray-900 bg-[#f7f7f7] text-left">
 						<tr>
-							<th className="p-4 font-semibold">#</th>
+							<th className="p-4 font-semibold" slot="#">
+								#
+							</th>
 							<th className="p-4 font-semibold">Nombre</th>
 							<th className="p-4 font-semibold">Tipo</th>
 							<th className="p-4 font-semibold">Stock</th>
@@ -58,7 +63,7 @@ function TableIndex() {
 						</tr>
 					</thead>
 					<tbody className="divide-y divide-gray-200">
-						<Pagination currentItems={currentItems} />
+						<Pagination currentItems={currentItems} tipes={tipes} />
 					</tbody>
 				</table>
 			</section>

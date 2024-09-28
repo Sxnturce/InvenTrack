@@ -45,7 +45,7 @@ function Popup({ img, name, cantidad, position, dinero, children }) {
 						<div>
 							<p className="text-gray-600">Productos vendidos: {cantidad}</p>
 							<p className="text-gray-600">
-								Dinero generado: S/.{dinero.toLocaleString()}
+								Dinero generado: S/ {dinero.toLocaleString()}
 							</p>
 						</div>
 					</div>

@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function Icon({ ico, type }) {
+function Icon({ ico, type, pointer, event }) {
 	return (
 		<>
 			<div
@@ -16,7 +16,12 @@ function Icon({ ico, type }) {
 						: type === "Ventas"
 						? "bg-emerald-500"
 						: "bg-green-500"
-				} text-white px-3 py-2 rounded`}
+				} text-white px-3 py-2 rounded  ${
+					pointer
+						? "cursor-pointer shadow animate-questionJump relative z-[1]"
+						: ""
+				}`}
+				onClick={event}
 			>
 				<FontAwesomeIcon icon={ico} />
 			</div>

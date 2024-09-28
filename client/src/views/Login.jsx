@@ -11,6 +11,8 @@ import login_img from "/login_img.svg";
 import AlertSmall from "../helpers/alerts/AlertSmallError.js";
 import Alert from "../helpers/alerts/Alert.js";
 import clientAxios from "../config/Axios";
+import { useContext } from "react";
+import { AuthContext } from "../context/authContext.jsx";
 
 function Login() {
 	const [email, setEmail] = useState("");
@@ -21,6 +23,8 @@ function Login() {
 	const formRef = useRef(null);
 	const navigate = useNavigate();
 	const location = useLocation();
+
+	const { auth, setAuth } = useContext(AuthContext);
 
 	useEffect(() => {
 		function isUpdated() {
@@ -75,7 +79,8 @@ function Login() {
 			);
 			formRef.current.reset();
 			resetStates();
-			return navigate("/admin/dashboard");
+			setAuth(true);
+			return navigate("/admin");
 		} catch (e) {
 			const { msg } = e.response?.data;
 			if (e.response.status === 404) return setErrEmail(msg);

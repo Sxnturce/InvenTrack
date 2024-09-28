@@ -13,8 +13,24 @@ export default {
         "top3": '#FFA500',
         "top4": '#FFD700',
         "top5": '#FFC107'
-      }
+      },
+      keyframes: {
+        questionJump: {
+          '0%': { top: '0em' },
+          '40%': { top: '0em' },
+          '43%': { top: '-0.9em' },
+          '46%': { top: '0em' },
+          '48%': { top: '-0.4em' },
+          '50%': { top: '0em' },
+          '100%': { top: '0em' },
+        },
+      },
+      animation: {
+        questionJump: 'questionJump 4s infinite linear',
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwindcss-animated'),
+  ],
 }

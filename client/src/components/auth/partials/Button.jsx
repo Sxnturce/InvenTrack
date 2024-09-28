@@ -4,6 +4,8 @@ function Button({ value, type }) {
 			? "bg-green-500 hover:bg-green-700 transition-colors ease-in-out"
 			: type === "editar"
 			? "bg-amber-500 hover:bg-amber-600 transition-colors ease-in-out"
+			: type === "vender"
+			? "bg-blue-500 hover:bg-blue-600 transition-colors ease-in-out"
 			: "bg-color-main button-pushed";
 	return (
 		<>

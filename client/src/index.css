@@ -60,7 +60,7 @@ tr:nth-child(even) {
 }
 
 .ventas:nth-child(even) {
-	background-color: #f6fff6;
+	background-color: #fdfffc;
 }
 
 .pagination {
@@ -69,7 +69,7 @@ tr:nth-child(even) {
 	align-items: center;
 	gap: 0.3rem;
 	margin-top: 0.8rem;
-	background: rgb(255, 252, 252);
+	background-color: #fffcfc;
 	padding: 1rem;
 	max-width: max-content;
 	margin: 1rem auto 1rem auto;
@@ -89,5 +89,28 @@ tr:nth-child(even) {
 	.previus,
 	.next {
 		color: rgb(97, 91, 91);
+	}
+}
+
+.question {
+	display: flex;
+	flex-direction: column;
+	gap: 0.73rem;
+	justify-content: left;
+	align-items: center;
+	.stats_question {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1.5rem;
+	}
+	p {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		strong {
+			display: block;
+			margin-right: 1rem;
+		}
 	}
 }

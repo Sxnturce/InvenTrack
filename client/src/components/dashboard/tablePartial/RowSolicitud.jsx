@@ -13,7 +13,7 @@ function RowReport({ product, usuario, estado, id, cantidad, fecha }) {
 						name="estado"
 						id="estado"
 						defaultValue={estado.toLowerCase()}
-						className="py-[0.22rem] px-2 rounded border-2 border-gray-200 outline-none focus:ring-2 text-sm"
+						className="py-[0.22rem] px-2 rounded border-2 border-gray-200 outline-none focus:ring-2 text-sm cursor-pointer"
 					>
 						{states.map((state, index) => {
 							return (
