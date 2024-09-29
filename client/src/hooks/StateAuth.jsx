@@ -14,7 +14,6 @@ function StateAuth({ children }) {
 				const result = await clientAxios.get("admin/dashboard", {
 					withCredentials: true,
 				});
-				console.log(result);
 				if (result && result.data && result.data.usuario) {
 					setAuth(true);
 					setUser(result.data.usuario);
@@ -31,8 +30,7 @@ function StateAuth({ children }) {
 		}
 
 		isAuth();
-		console.log("hola");
-	}, [auth]);
+	}, []);
 
 	return (
 		<AuthContext.Provider value={{ auth, setAuth, user, setUser, loading }}>

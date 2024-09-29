@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useMemo } from "react";
 
-function RowIndex({ product, tipo, estado, cantidad, id, arr }) {
+function RowIndex({ product, tipo, estado, cantidad, id, arr, del }) {
 	const typeMap = useMemo(() => {
 		return arr.reduce((acc, item) => {
 			acc[item.id] = item.nombre;
@@ -38,7 +38,8 @@ function RowIndex({ product, tipo, estado, cantidad, id, arr }) {
 						Editar
 					</Link>
 					<button
-						delete-id={id}
+						data-id={id}
+						onClick={del}
 						className="py-1 px-2 rounded bg-red-500 hover:bg-red-600 transition-colors ease-in-out text-white text-center text-sm"
 					>
 						Eliminar

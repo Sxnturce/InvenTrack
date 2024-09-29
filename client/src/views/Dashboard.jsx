@@ -1,11 +1,30 @@
 import LineChart from "../graphics/LineChart";
 import Top from "../components/dashboard/Top";
+import Alert from "../helpers/alerts/Alert.js";
 import Icon from "../components/dashboard/partials/Icon";
 import Stats from "../components/dashboard/Stats";
 import TableIndex from "../components/dashboard/TableIndex";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 function Dashboard() {
+	const location = useLocation();
+	useEffect(() => {
+		function isUpdated() {
+			const { updated } = location.state || {};
+			if (updated) {
+				Alert(
+					"Producto Actualizado",
+					"Su producto fue actualizado correctamente.",
+					true,
+					true
+				);
+			}
+			window.history.replaceState({}, document.title);
+		}
+		isUpdated();
+	}, []);
 	return (
 		<>
 			<section className="flex flex-col gap-9 max-w-[1450px] mx-auto">

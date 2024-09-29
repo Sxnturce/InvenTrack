@@ -9,11 +9,7 @@ import { AuthContext } from "../../context/authContext";
 
 function Header({ children, change }) {
 	const [active, setActive] = useState(false);
-	const { user, loading } = useContext(AuthContext);
-	if (!loading) {
-		console.log(user);
-	}
-
+	const { user } = useContext(AuthContext);
 	return (
 		<>
 			<header className="w-full fixed top-0 flex justify-between z-10 shadow-md bg-gray-100">

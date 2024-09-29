@@ -13,8 +13,8 @@ function Categorias({ categorias, text, toSelect, stock, err, event, value }) {
 					{<option value="">--Escoja una {toSelect}--</option>}
 					{categorias.map((cat, i) => {
 						return (
-							<option key={i} value={stock ? cat.toLowerCase() : (i += 1)}>
-								{cat}
+							<option key={i} value={stock ? cat.toLowerCase() : cat.id}>
+								{stock ? cat : cat.nombre}
 							</option>
 						);
 					})}

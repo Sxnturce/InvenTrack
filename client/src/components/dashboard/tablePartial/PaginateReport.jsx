@@ -1,16 +1,18 @@
 import Row from "./RowReport";
 
-function PaginationReport({ currentItems }) {
+function PaginationReport({ currentItems, arr, report }) {
 	return (
 		<>
 			{currentItems &&
-				currentItems.map((bird) => (
+				currentItems.map((product) => (
 					<Row
-						key={bird.id}
-						product={bird.name}
-						tipo={bird.diet}
-						id={bird.id}
-						stock={"Adecuado"}
+						key={product.id}
+						product={product.nombre}
+						tipo={product.tipo_id}
+						id={product.id}
+						stock={product.estado_stock}
+						arr={arr}
+						report={report}
 					/>
 				))}
 		</>

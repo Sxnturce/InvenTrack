@@ -7,6 +7,9 @@ const router = Router()
 router.route("/").get(auth, Admin.dashboard).post(auth, Admin.findCategory)
 router.post("/create", auth, Admin.createProduct)
 
+//Find User
+router.get("/find-user/:id", auth, Admin.findUser)
+
 //HOME ENDPOINTS
 router.get("/all-tipes", auth, Admin.allTipes)
 router.get("/tipo/:id", auth, Admin.getTipo)
@@ -15,6 +18,7 @@ router.get("/get-top-product", auth, Admin.getTopProduct)
 router.get("/get-top-tipo", auth, Admin.getTopTipe)
 
 //CRUD productos
+router.get("/all-products", auth, Admin.allProducts)
 router.route("/product/:id").get(auth, Admin.getProduct).put(auth, Admin.updateProduct).delete(auth, Admin.deleteProduct)
 
 //Generar pedido

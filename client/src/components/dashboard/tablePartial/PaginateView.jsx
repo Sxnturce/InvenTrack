@@ -1,5 +1,5 @@
 import Row from "./RowIndex";
-function Pagination({ currentItems, tipes }) {
+function Pagination({ currentItems, tipes, del }) {
 	return (
 		<>
 			{currentItems &&
@@ -12,6 +12,7 @@ function Pagination({ currentItems, tipes }) {
 						id={product.id}
 						estado={product.estado_stock}
 						arr={tipes}
+						del={del}
 					/>
 				))}
 		</>

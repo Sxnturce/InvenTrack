@@ -1,6 +1,6 @@
 import { faRankingStar } from "@fortawesome/free-solid-svg-icons";
 import Icon from "./partials/Icon";
-import getData from "../../helpers/getData";
+import Query from "../../helpers/Querys.js";
 import { useEffect, useState } from "react";
 import Sellers from "./partials/Sellers";
 import person02 from "/img/person_02.webp";
@@ -14,7 +14,7 @@ function Top() {
 	useEffect(() => {
 		async function getTop() {
 			try {
-				const info = await getData("get-top-users");
+				const info = await Query.getData("get-top-users");
 				setUsers(info.data.topUserSales);
 			} catch (e) {
 				console.log(e);

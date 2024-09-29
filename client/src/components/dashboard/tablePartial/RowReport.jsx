@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
+import { useMemo } from "react";
+function RowReport({ product, tipo, stock, id, arr, report }) {
+	const typeMap = useMemo(() => {
+		return arr.reduce((acc, item) => {
+			acc[item.id] = item.nombre;
+			return acc;
+		}, {});
+	}, [arr]);
 
-function RowReport({ product, tipo, stock, id }) {
 	const stateStock =
 		stock === "Bajo"
 			? "bg-gray-500"
@@ -12,7 +19,7 @@ function RowReport({ product, tipo, stock, id }) {
 			<tr className="border-b border">
 				<td className="p-3">{id}</td>
 				<td className="p-3">{product}</td>
-				<td className="p-3">{tipo}</td>
+				<td className="p-3">{typeMap[tipo]}</td>
 				<td className="p-3">
 					<p
 						className={`${stateStock} px-2 py-[0.20rem] rounded-lg max-w-max text-xs text-white text-center`}
@@ -22,7 +29,8 @@ function RowReport({ product, tipo, stock, id }) {
 				</td>
 				<td>
 					<button
-						data-id={id}
+						data-report={id}
+						onClick={report}
 						className="py-1 px-2 rounded bg-amber-500 text-white  text-sm text-center hover:bg-amber-600 transition-colors ease-in-out"
 					>
 						Generar Reporte
@@ -30,6 +38,7 @@ function RowReport({ product, tipo, stock, id }) {
 				</td>
 				<td>
 					<Link
+						data-sell={id}
 						to={`/admin/vender-product/${id}`}
 						className="py-1 px-2 rounded bg-blue-500 text-white  text-sm text-center hover:bg-blue-600 transition-colors ease-in-out"
 					>

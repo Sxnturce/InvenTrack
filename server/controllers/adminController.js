@@ -16,8 +16,17 @@ class Admin {
   static dashboard = async (req, res) => {
     const user = req.usuario.dataValues
     try {
-      const products = await Producto.getAll();
-      return res.json({ usuario: user, productos: products })
+      return res.json({ usuario: user })
+    } catch (e) {
+      res.status(401).json({ err: "No esta authorizado para realizar esta acción." })
+    }
+  }
+
+  static findUser = async (req, res) => {
+    const { id } = req.params
+    try {
+      const user = await Usuario.comprobateID(id)
+      return res.json({ user })
     } catch (e) {
       res.status(401).json({ err: "No esta authorizado para realizar esta acción." })
     }
@@ -99,7 +108,17 @@ class Admin {
   }
 
   //Productos
+  static allProducts = async (req, res) => {
+    try {
+      const producto = await Producto.getAll()
+      res.json(producto)
+    } catch (e) {
+      res.status(401).json({ msg: "Error al obtener los productos." })
+    }
+  }
+
   static createProduct = async (req, res) => {
+    console.log(req.body);
     const result = productValidate(req.body)
 
     if (!result.success) {

@@ -1,32 +1,69 @@
 import Icon from "../components/dashboard/partials/Icon";
 import { faBox } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { useLocation } from "react-router-dom";
+import Query from "../helpers/Querys.js";
 import PaginationReport from "../components/dashboard/tablePartial/PaginateReport";
 import PaginateCount from "../components/dashboard/tablePartial/PaginateCount";
+import AlertReport from "../helpers/alerts/AlertReport.js";
+import Alert from "../helpers/alerts/Alert.js";
+import { AuthContext } from "../context/authContext";
 
 function Acciones() {
-	const [data, setData] = useState([]);
+	const [tipes, setTipos] = useState([]);
+	const [products, setProducts] = useState([]);
 	const [itemOffset, setItemOffset] = useState(0);
+	const location = useLocation();
 	const itemsPerPage = 12;
 
+	const { user } = useContext(AuthContext);
 	useEffect(() => {
-		const url = "https://freetestapi.com/api/v1/birds?limit=30";
+		const { venta } = location.state || {};
+		if (venta) {
+			Alert("Venta Existosa", "Su venta fue realizada con exito", true, true);
+		}
+	}, []);
+
+	useEffect(() => {
 		async function getData() {
-			const result = await fetch(url);
-			const birds = await result.json();
-			setData(birds);
+			const tipos = await Query.getData("all-tipes");
+			const productos = await Query.getData("all-products");
+
+			setTipos(tipos.data);
+			setProducts(productos.data);
 		}
 		getData();
 	}, []);
 
 	const endOffset = itemOffset + itemsPerPage;
-	const currentItems = data.slice(itemOffset, endOffset);
-	const pageCount = Math.ceil(data.length / itemsPerPage);
+	const currentItems = products.slice(itemOffset, endOffset);
+	const pageCount = Math.ceil(products.length / itemsPerPage);
 
 	const handlePageClick = (event) => {
-		const newOffset = (event.selected * itemsPerPage) % data.length;
+		const newOffset = (event.selected * itemsPerPage) % products.length;
 		setItemOffset(newOffset);
 	};
+
+	async function handleReport({ target }) {
+		const id = target.getAttribute("data-report");
+		const result = await AlertReport(id);
+		if (result) {
+			try {
+				await Query.createReport("generar-pedido", {
+					...result,
+					usuario_id: user.id,
+				});
+				Alert("Reporte exitoso", "", true, true);
+			} catch (e) {
+				Alert(
+					"Algo salio mal",
+					"Ocurrio un error al intentar generar este reporte",
+					false,
+					true
+				);
+			}
+		}
+	}
 
 	return (
 		<>
@@ -49,7 +86,11 @@ function Acciones() {
 						</tr>
 					</thead>
 					<tbody className="divide-y divide-gray-200">
-						<PaginationReport currentItems={currentItems} />
+						<PaginationReport
+							currentItems={currentItems}
+							arr={tipes}
+							report={handleReport}
+						/>
 					</tbody>
 				</table>
 			</section>

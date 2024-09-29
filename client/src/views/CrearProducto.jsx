@@ -3,16 +3,34 @@ import Categorias from "../components/dashboard/Categorias";
 import Button from "../components/auth/partials/Button";
 import methodDecimal from "../helpers/MethodDecimal";
 import Icon from "../components/dashboard/partials/Icon";
-import { faP, faPlus } from "@fortawesome/free-solid-svg-icons";
+import Query from "../helpers/Querys.js";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { productValidate } from "../validate/productoValidate.js";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import Alert from "../helpers/alerts/Alert";
 
 function CrearProducto() {
 	const [nombre, setNombre] = useState("");
 	const [tipo, setTipo] = useState("");
+	const [load, setLoading] = useState(true);
 	const [cantidad, setCantidad] = useState("");
 	const [precio, setPrecio] = useState("");
 	const [stock, setStock] = useState("");
+	const [categorias, setCategorias] = useState([]);
+	const formRef = useRef(null);
+
+	useEffect(() => {
+		async function getCategorias() {
+			try {
+				const tipos = await Query.getData("all-tipes");
+				setCategorias(tipos);
+				setLoading(false);
+			} catch (e) {
+				console.log(e);
+			}
+		}
+		getCategorias();
+	}, []);
 
 	const [nombreErr, setNombreErr] = useState("");
 	const [tipoErr, setTipoErr] = useState("");
@@ -20,7 +38,6 @@ function CrearProducto() {
 	const [precioErr, setPrecioErr] = useState("");
 	const [stockErr, setStockErr] = useState("");
 
-	const tipos = ["Mueble", "Electrico", "Juguete", "Gamer", "Moda"];
 	const stockArr = ["Bajo", "Adecuado", "Suficiente"];
 
 	useEffect(() => {
@@ -31,7 +48,7 @@ function CrearProducto() {
 		setStockErr("");
 	}, [nombre, tipo, cantidad, precio, stock]);
 
-	function handleSubmit(e) {
+	async function handleSubmit(e) {
 		e.preventDefault();
 
 		const result = productValidate({
@@ -69,7 +86,29 @@ function CrearProducto() {
 				return;
 			}
 		}
-		console.log("Todo bien");
+		const { nombre: name, estado_stock, precio: price, tipo_id } = result.data;
+
+		try {
+			await Query.createProduct(
+				"create",
+				name,
+				tipo_id,
+				result.data.cantidad,
+				price,
+				estado_stock
+			);
+			formRef.current.reset();
+			resetValues();
+			Alert(
+				"Creado Correcamtente",
+				"El producto fue creado con existosamente.",
+				true,
+				true
+			);
+		} catch (e) {
+			const { msg } = e.response?.data;
+			setNombreErr(msg);
+		}
 	}
 
 	function handleCount({ target: { value } }) {
@@ -82,66 +121,80 @@ function CrearProducto() {
 		setPrecio(sanitized);
 	}
 
+	function resetValues() {
+		setNombre("");
+		setTipo("");
+		setCantidad("");
+		setPrecio("");
+		setStock("");
+	}
 	return (
 		<>
-			<div className="flex gap-4 items-center text-[#525252]">
-				<Icon ico={faPlus} />
-				<h1 className="text-xl">Crear Producto - InvenTrack</h1>
-			</div>
-			<section className="w-full flex flex-col gap-6 max-w-[550px] bg-white rounded shadow px-6 py-4 mx-auto mt-8">
-				<h1 className="text-3xl text-green-500 font-black ">Crear Producto</h1>
-				<form
-					method="post"
-					className="flex flex-col gap-4"
-					onSubmit={handleSubmit}
-				>
-					<Input
-						text={"Nombre de producto"}
-						name={"productName"}
-						value={nombre}
-						errMsg={nombreErr}
-						event={(e) => {
-							setNombre(e.target.value);
-						}}
-					/>
-					<Categorias
-						categorias={tipos}
-						text={"Categorias"}
-						toSelect={"categoria"}
-						err={tipoErr}
-						value={tipo}
-						event={(e) => {
-							setTipo(e.target.value);
-						}}
-					/>
-					<Input
-						text={"Cantidad del Producto"}
-						name={"countProduct"}
-						value={cantidad}
-						errMsg={cantidadErr}
-						event={handleCount}
-					/>
-					<Input
-						text={"Precio del Producto"}
-						name={"priceProduct"}
-						value={precio}
-						errMsg={precioErr}
-						event={handlePrice}
-					/>
-					<Categorias
-						categorias={stockArr}
-						text={"Estado de Stock"}
-						toSelect={"stock"}
-						stock={true}
-						err={stockErr}
-						value={stock}
-						event={(e) => {
-							setStock(e.target.value);
-						}}
-					/>
-					<Button value={"Crear producto"} type={"crear"} />
-				</form>
-			</section>
+			{!load && (
+				<main>
+					<div className="flex gap-4 items-center text-[#525252]">
+						<Icon ico={faPlus} />
+						<h1 className="text-xl">Crear Producto - InvenTrack</h1>
+					</div>
+					<section className="w-full flex flex-col gap-6 max-w-[550px] bg-white rounded shadow px-6 py-4 mx-auto mt-8">
+						<h1 className="text-3xl text-green-500 font-black ">
+							Crear Producto
+						</h1>
+						<form
+							method="post"
+							className="flex flex-col gap-4"
+							onSubmit={handleSubmit}
+							ref={formRef}
+						>
+							<Input
+								text={"Nombre de producto"}
+								name={"productName"}
+								value={nombre}
+								errMsg={nombreErr}
+								event={(e) => {
+									setNombre(e.target.value);
+								}}
+							/>
+							<Categorias
+								categorias={categorias.data}
+								text={"Categorias"}
+								toSelect={"categoria"}
+								err={tipoErr}
+								value={tipo}
+								event={(e) => {
+									setTipo(e.target.value);
+								}}
+							/>
+							<Input
+								text={"Cantidad del Producto"}
+								name={"countProduct"}
+								value={cantidad}
+								errMsg={cantidadErr}
+								event={handleCount}
+							/>
+							<Input
+								text={"Precio del Producto"}
+								name={"priceProduct"}
+								value={precio}
+								errMsg={precioErr}
+								event={handlePrice}
+							/>
+							<Categorias
+								categorias={stockArr}
+								text={"Estado de Stock"}
+								toSelect={"stock"}
+								stock={true}
+								err={stockErr}
+								value={stock}
+								event={(e) => {
+									setStock(e.target.value);
+								}}
+							/>
+							<Button value={"Crear producto"} type={"crear"} />
+						</form>
+					</section>
+				</main>
+			)}
 		</>
 	);
 }

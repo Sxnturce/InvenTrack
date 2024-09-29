@@ -98,6 +98,7 @@ tr:nth-child(even) {
 	gap: 0.73rem;
 	justify-content: left;
 	align-items: center;
+	flex-wrap: wrap;
 	.stats_question {
 		display: flex;
 		justify-content: space-between;
@@ -110,7 +111,7 @@ tr:nth-child(even) {
 		justify-content: space-between;
 		strong {
 			display: block;
-			margin-right: 1rem;
+			margin-right: 0.68rem;
 		}
 	}
 }

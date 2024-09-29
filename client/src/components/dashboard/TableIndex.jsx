@@ -1,22 +1,26 @@
 import Icon from "./partials/Icon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBox, faAdd } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Pagination from "./tablePartial/PaginateView";
 import PaginateCount from "./tablePartial/PaginateCount";
-import getData from "../../helpers/getData.js";
+import Query from "../../helpers/Querys.js";
+import AlertDelete from "../../helpers/alerts/AlertDelete.js";
 
 function TableIndex() {
 	const [tipes, setTipos] = useState([]);
 	const [products, setProducts] = useState([]);
 	const [itemOffset, setItemOffset] = useState(0);
+	const navigate = useNavigate();
 	const itemsPerPage = 10;
 
 	useEffect(() => {
 		async function getTipos() {
 			try {
-				const tipos = await getData("all-tipes");
+				const tipos = await Query.getData("all-tipes");
+				const productos = await Query.getData("all-products");
+				setProducts(productos.data);
 				setTipos(tipos.data);
 			} catch (e) {
 				console.log(e);
@@ -28,6 +32,20 @@ function TableIndex() {
 	const currentItems = products.slice(itemOffset, endOffset);
 	const pageCount = Math.ceil(products.length / itemsPerPage);
 
+	async function handleDelete({ target }) {
+		const id = target.getAttribute("data-id");
+		const result = await AlertDelete();
+
+		if (result) {
+			try {
+				await Query.deleteProduct(`product/${id}`);
+				const tr = target.closest("tr");
+				tr.remove();
+			} catch (e) {
+				console.log(e);
+			}
+		}
+	}
 	const handlePageClick = (event) => {
 		const newOffset = (event.selected * itemsPerPage) % products.length;
 		setItemOffset(newOffset);
@@ -63,7 +81,11 @@ function TableIndex() {
 						</tr>
 					</thead>
 					<tbody className="divide-y divide-gray-200">
-						<Pagination currentItems={currentItems} tipes={tipes} />
+						<Pagination
+							currentItems={currentItems}
+							tipes={tipes}
+							del={handleDelete}
+						/>
 					</tbody>
 				</table>
 			</section>
