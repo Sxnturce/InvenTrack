@@ -9,17 +9,23 @@ import { partialPedidoValidate } from "../validate/pedidoValidate";
 import AlertSmall from "../helpers/alerts/AlertSmallError.js";
 import alertSmallSuccess from "../helpers/alerts/AlertSmallSuccess.js";
 import Searcher from "../components/dashboard/partials/Searcher";
+import { useNavigate } from "react-router-dom";
 
 function Solicitud() {
 	const [data, setData] = useState([]);
 	const [itemOffset, setItemOffset] = useState(0);
 	const itemsPerPage = 10;
 	const [toSearch, setToSearch] = useState("");
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		async function getReports() {
-			const result = await Query.getData("reports");
-			setData(result.data);
+			try {
+				const result = await Query.getData("reports");
+				setData(result.data);
+			} catch (e) {
+				navigate("/", { state: { caduced: true } });
+			}
 		}
 		getReports();
 	}, []);
@@ -86,18 +92,21 @@ function Solicitud() {
 					</thead>
 					<tbody className="divide-y divide-gray-200">
 						{currentItems &&
-							currentItems.map((report) => (
-								<Row
-									key={report.id}
-									usuario={report.usuario.nombre_usuario}
-									product={report.producto.nombre}
-									cantidad={report.cantidad}
-									id={report.id}
-									estado={report.estado_envio}
-									fecha={ParseDate(report.fecha_pedido)}
-									event={handleChange}
-								/>
-							))}
+							currentItems
+								.reverse()
+								.map((report, i) => (
+									<Row
+										key={report.id}
+										usuario={report.usuario.nombre_usuario}
+										product={report.producto.nombre}
+										cantidad={report.cantidad}
+										order={i + 1}
+										id={report.id}
+										estado={report.estado_envio}
+										fecha={ParseDate(report.fecha_pedido)}
+										event={handleChange}
+									/>
+								))}
 					</tbody>
 				</table>
 			</section>

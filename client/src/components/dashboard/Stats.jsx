@@ -1,5 +1,6 @@
 import Icon from "./partials/Icon";
 import { useEffect, useState, useContext } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import Query from "../../helpers/Querys.js";
 import Card from "./partials/Card";
 import { AuthContext } from "../../context/authContext";
@@ -14,6 +15,7 @@ function Stats() {
 	const [topTipe, setTopTipe] = useState({});
 	const [loading, setLoading] = useState(true);
 	const { user } = useContext(AuthContext);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		async function getDataCards() {
@@ -30,6 +32,7 @@ function Stats() {
 				setTopProduct(topSellProduct);
 			} catch (error) {
 				console.error("Error al cargar los datos:", error);
+				navigate("/", { state: { caduced: true } });
 			} finally {
 				setLoading(false);
 			}

@@ -28,7 +28,7 @@ function Login() {
 
 	useEffect(() => {
 		function isUpdated() {
-			const { update } = location.state || {};
+			const { update, caduced } = location.state || {};
 			if (update) {
 				Alert(
 					"Contraseña actualizada",
@@ -36,6 +36,17 @@ function Login() {
 					true,
 					true
 				);
+				window.history.replaceState({}, document.title);
+				return;
+			}
+			if (caduced) {
+				Alert(
+					"Su sessión caduco",
+					"Por favor inicie sesion nuevamente",
+					false,
+					true
+				);
+				window.history.replaceState({}, document.title);
 				return;
 			}
 		}

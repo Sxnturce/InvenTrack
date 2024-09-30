@@ -1,4 +1,13 @@
-function RowReport({ product, usuario, estado, id, cantidad, fecha, event }) {
+function RowReport({
+	product,
+	usuario,
+	estado,
+	id,
+	cantidad,
+	fecha,
+	event,
+	order,
+}) {
 	const states = ["enviado", "entregado", "pendiente"];
 	const lower = estado.toLowerCase();
 
@@ -11,7 +20,7 @@ function RowReport({ product, usuario, estado, id, cantidad, fecha, event }) {
 	return (
 		<>
 			<tr className="border-b border solicitud">
-				<td className="p-2">{id}</td>
+				<td className="p-2">{order}</td>
 				<td className="p-2">{usuario}</td>
 				<td className="p-2">{product}</td>
 				<td className="p-2">

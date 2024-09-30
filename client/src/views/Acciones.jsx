@@ -1,7 +1,7 @@
 import Icon from "../components/dashboard/partials/Icon";
 import { faBox } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState, useContext } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Query from "../helpers/Querys.js";
 import Row from "../components/dashboard/tablePartial/RowReport";
 import PaginateCount from "../components/dashboard/tablePartial/PaginateCount";
@@ -16,8 +16,8 @@ function Acciones() {
 	const location = useLocation();
 	const [toSearch, setToSearch] = useState("");
 	const itemsPerPage = 12;
+	const navigate = useNavigate();
 
-	const { user } = useContext(AuthContext);
 	useEffect(() => {
 		const { venta } = location.state || {};
 		if (venta) {
@@ -27,8 +27,12 @@ function Acciones() {
 
 	useEffect(() => {
 		async function getData() {
-			const productos = await Query.getData("all-products");
-			setProducts(productos.data);
+			try {
+				const productos = await Query.getData("all-products");
+				setProducts(productos.data);
+			} catch (e) {
+				navigate("/", { state: { caduced: true } });
+			}
 		}
 		getData();
 	}, []);

@@ -6,17 +6,23 @@ import PaginateCount from "../components/dashboard/tablePartial/PaginateCount";
 import Searcher from "../components/dashboard/partials/Searcher";
 import ParseDate from "../helpers/ParseDate.js";
 import Query from "../helpers/Querys";
+import { useNavigate } from "react-router-dom";
 
 function Ventas() {
 	const [data, setData] = useState([]);
 	const [itemOffset, setItemOffset] = useState(0);
 	const itemsPerPage = 10;
 	const [toSearch, setToSearch] = useState("");
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		async function getVentas() {
-			const ventas = await Query.getData("ventas");
-			setData(ventas.data);
+			try {
+				const ventas = await Query.getData("ventas");
+				setData(ventas.data);
+			} catch (e) {
+				navigate("/", { state: { caduced: true } });
+			}
 		}
 		getVentas();
 	}, []);

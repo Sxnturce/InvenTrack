@@ -5,12 +5,19 @@ import Icon from "../components/dashboard/partials/Icon";
 import Stats from "../components/dashboard/Stats";
 import TableIndex from "../components/dashboard/TableIndex";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
 
 function Dashboard() {
+	const { user } = useContext(AuthContext);
 	const location = useLocation();
+
 	useEffect(() => {
+		if (!user) {
+			location("/");
+			return;
+		}
 		function isUpdated() {
 			const { updated } = location.state || {};
 			if (updated) {
