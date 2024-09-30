@@ -82,7 +82,8 @@ function Login() {
 			setAuth(true);
 			return navigate("/admin");
 		} catch (e) {
-			const { msg } = e.response?.data;
+			const { msg } = e?.response?.data ?? e;
+			console.log(e);
 			if (e.response.status === 404) return setErrEmail(msg);
 			if (e.response.status === 400) return setErrPass(msg);
 			AlertSmall(msg, "");

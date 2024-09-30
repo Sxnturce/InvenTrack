@@ -20,7 +20,6 @@ function VenderProducto() {
 	const [nombre, setNombre] = useState("");
 	const [target, setTarget] = useState("");
 	const [loader, setLoader] = useState(true);
-	const [tipoArr, setTipoArr] = useState([]);
 	const [cantidad, setCantidad] = useState("");
 	const [tienda, setTienda] = useState("");
 
@@ -42,15 +41,18 @@ function VenderProducto() {
 
 	useEffect(() => {
 		async function getProduct() {
-			const product = await Query.getData(`product/${id}`);
-			const allTipes = await Query.getData("all-tipes");
-
-			setTipoArr(allTipes.data);
-			setTarget(product.data);
-			setNombre(product.data.nombre);
-			setTipo(product.data.tipo_id);
-			setProducto(product.data.id);
-			setLoader(false);
+			try {
+				const product = await Query.getData(`product/${id}`);
+				setTarget(product.data);
+				setNombre(product.data.nombre);
+				setTipo(product.data.tipos.nombre);
+				setProducto(product.data.id);
+				setLoader(false);
+			} catch (e) {
+				if (e.status === 400 || e.status === 404) {
+					navigate("/admin/actions");
+				}
+			}
 		}
 		getProduct();
 	}, []);
@@ -152,7 +154,6 @@ function VenderProducto() {
 								text={"Categorias"}
 								err={tipoErr}
 								value={tipo}
-								arr={tipoArr}
 							/>
 
 							<Input

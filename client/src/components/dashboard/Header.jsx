@@ -1,5 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import {
+	faChevronDown,
+	faChevronUp,
+	faEllipsisVertical,
+} from "@fortawesome/free-solid-svg-icons";
 import logoInventory from "/inventoryLogo.webp";
 import profilePhoto from "/profile.png";
 import Options from "./partials/Options";
@@ -34,7 +38,7 @@ function Header({ children, change }) {
 					</Link>
 					{children}
 				</section>
-				<div className="p-4 flex gap-6 items-center relative ">
+				<div className="p-4 hidden gap-6 items-center relative sm:flex">
 					<picture className="w-11 block rounded-full border-2 p-2">
 						<img src={profilePhoto} alt="profile-photo" className="w-full" />
 					</picture>
@@ -48,6 +52,16 @@ function Header({ children, change }) {
 							className="text-gray-400 cursor-pointer text-sm"
 						/>
 					</div>
+					{active && <Options />}
+				</div>
+				<div className="p-4 sm:hidden gap-6 items-center relative flex">
+					<FontAwesomeIcon
+						icon={faEllipsisVertical}
+						onClick={() => {
+							setActive(!active);
+						}}
+						className="text-gray-400 cursor-pointer text-2xl mr-4"
+					/>
 					{active && <Options />}
 				</div>
 			</header>

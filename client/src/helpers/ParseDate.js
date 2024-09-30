@@ -1,12 +1,12 @@
 function ParseDate(fecha) {
-  const date = new Date(fecha)
+  const date = new Date(fecha);
   const options = {
     year: 'numeric',
-    month: 'long', // Usa 'numeric' para mes como número
+    month: 'short',
     day: 'numeric'
   };
-  const formated = date.toLocaleString("es-Es", options)
-  return formated
+  const formated = date.toLocaleString("es-ES", options);
+  return formated;
 }
 
-export default ParseDate
+export default ParseDate;

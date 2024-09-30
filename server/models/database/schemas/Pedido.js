@@ -21,6 +21,9 @@ const pedidoSchemma = db.define('pedidos', {
   fecha_pedido: {
     type: DataTypes.TIME,
   }
+}, {
+  tableName: "pedidos",
+  modelName: "pedidos"
 })
 
 export default pedidoSchemma

@@ -1,13 +1,5 @@
 import { Link } from "react-router-dom";
-import { useMemo } from "react";
-function RowReport({ product, tipo, stock, id, arr, report }) {
-	const typeMap = useMemo(() => {
-		return arr.reduce((acc, item) => {
-			acc[item.id] = item.nombre;
-			return acc;
-		}, {});
-	}, [arr]);
-
+function RowReport({ product, tipo, stock, id, report }) {
 	const stateStock =
 		stock === "Bajo"
 			? "bg-gray-500"
@@ -19,7 +11,7 @@ function RowReport({ product, tipo, stock, id, arr, report }) {
 			<tr className="border-b border">
 				<td className="p-3">{id}</td>
 				<td className="p-3">{product}</td>
-				<td className="p-3">{typeMap[tipo]}</td>
+				<td className="p-3">{tipo}</td>
 				<td className="p-3">
 					<p
 						className={`${stateStock} px-2 py-[0.20rem] rounded-lg max-w-max text-xs text-white text-center`}

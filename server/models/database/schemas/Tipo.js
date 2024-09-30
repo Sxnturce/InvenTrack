@@ -7,6 +7,9 @@ const tipoSchemma = db.define('tipos', {
     allowNull: false,
     unique: true
   }
+}, {
+  modelName: "tipos",
+  tableName: "tipos"
 })
 
 export default tipoSchemma

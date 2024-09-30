@@ -21,6 +21,10 @@ const ventasSchemma = db.define('ventas', {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false
   }
-})
+},
+  {
+    modelName: "ventas",
+    tableName: "ventas"
+  })
 
 export default ventasSchemma

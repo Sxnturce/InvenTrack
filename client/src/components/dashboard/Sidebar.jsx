@@ -1,6 +1,5 @@
 import {
 	faHome,
-	faCircleExclamation,
 	faClock,
 	faClipboardList,
 	faShield,
@@ -11,6 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import LinkSidebar from "./partials/Link";
 import clientAxios from "../../config/Axios";
+import AlertLogout from "../../helpers/alerts/AlertLogout";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,21 +19,25 @@ import { useNavigate } from "react-router-dom";
 function Sidebar({ state }) {
 	const { setAuth } = useContext(AuthContext);
 	const navigate = useNavigate();
+
 	async function logout() {
-		try {
-			const result = await clientAxios.post(
-				"admin/dashboard/logout",
-				{},
-				{
-					withCredentials: true,
+		const result = await AlertLogout();
+		if (result) {
+			try {
+				const result = await clientAxios.post(
+					"admin/dashboard/logout",
+					{},
+					{
+						withCredentials: true,
+					}
+				);
+				if (result.status === 200) {
+					setAuth(false);
+					return navigate("/");
 				}
-			);
-			if (result.status === 200) {
-				setAuth(false);
-				return navigate("/");
+			} catch (e) {
+				console.log(e);
 			}
-		} catch (e) {
-			console.log(e);
 		}
 	}
 	return (

@@ -21,6 +21,9 @@ const productosSchemma = db.define('productos', {
     type: DataTypes.ENUM('Bajo', 'Adecuado', 'Suficiente'),
     defaultValue: "Adecuado",
   }
+}, {
+  tableName: "productos",
+  modelName: "productos"
 })
 
 export default productosSchemma

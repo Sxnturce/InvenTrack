@@ -44,6 +44,9 @@ const userSchemma = db.define('usuarios', {
     type: DataTypes.INTEGER(),
     defaultValue: 0
   }
+}, {
+  tableName: "usuarios",
+  modelName: "usuarios"
 })
 
 export default userSchemma

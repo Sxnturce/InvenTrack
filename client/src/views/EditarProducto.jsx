@@ -200,7 +200,7 @@ function CrearProducto() {
 									setStock(e.target.value);
 								}}
 							/>
-							<Button value={"Editar producto"} type={"editar"} />
+							<Button value={"Guardar cambios"} type={"editar"} />
 						</form>
 					</section>
 				</main>

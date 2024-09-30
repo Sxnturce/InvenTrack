@@ -17,6 +17,9 @@ const productStatSchemma = db.define('products_stats', {
     defaultValue: 0.00,
     allowNull: false
   }
+}, {
+  modelName: "products_stats",
+  tableName: "products_stats"
 })
 
 export default productStatSchemma

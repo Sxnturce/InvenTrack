@@ -17,6 +17,9 @@ const tipoStatSchemma = db.define('tipos_stats', {
     defaultValue: 0.00,
     allowNull: false
   }
+}, {
+  tableName: "tipos_stats",
+  modelName: "tipos_stats"
 })
 
 export default tipoStatSchemma

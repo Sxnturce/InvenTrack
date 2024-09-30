@@ -1,14 +1,6 @@
 import { Link } from "react-router-dom";
-import { useMemo } from "react";
 
-function RowIndex({ product, tipo, estado, cantidad, id, arr, del }) {
-	const typeMap = useMemo(() => {
-		return arr.reduce((acc, item) => {
-			acc[item.id] = item.nombre;
-			return acc;
-		}, {});
-	}, [arr]);
-
+function RowIndex({ product, tipo, estado, cantidad, id, del }) {
 	const stateStock =
 		estado === "Bajo"
 			? "bg-gray-500"
@@ -21,7 +13,7 @@ function RowIndex({ product, tipo, estado, cantidad, id, arr, del }) {
 			<tr className="border-b border">
 				<td className="p-3">{id}</td>
 				<td className="p-3">{product}</td>
-				<td className="p-3">{typeMap[tipo]}</td>
+				<td className="p-3">{tipo}</td>
 				<td className="p-3">
 					<p
 						className={`${stateStock} px-2 py-1 rounded-lg max-w-max text-xs text-white text-center`}

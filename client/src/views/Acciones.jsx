@@ -3,17 +3,18 @@ import { faBox } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import Query from "../helpers/Querys.js";
-import PaginationReport from "../components/dashboard/tablePartial/PaginateReport";
+import Row from "../components/dashboard/tablePartial/RowReport";
 import PaginateCount from "../components/dashboard/tablePartial/PaginateCount";
 import AlertReport from "../helpers/alerts/AlertReport.js";
 import Alert from "../helpers/alerts/Alert.js";
 import { AuthContext } from "../context/authContext";
+import Searcher from "../components/dashboard/partials/Searcher";
 
 function Acciones() {
-	const [tipes, setTipos] = useState([]);
 	const [products, setProducts] = useState([]);
 	const [itemOffset, setItemOffset] = useState(0);
 	const location = useLocation();
+	const [toSearch, setToSearch] = useState("");
 	const itemsPerPage = 12;
 
 	const { user } = useContext(AuthContext);
@@ -26,21 +27,28 @@ function Acciones() {
 
 	useEffect(() => {
 		async function getData() {
-			const tipos = await Query.getData("all-tipes");
 			const productos = await Query.getData("all-products");
-
-			setTipos(tipos.data);
 			setProducts(productos.data);
 		}
 		getData();
 	}, []);
 
+	let data = [];
+
+	if (!toSearch) {
+		data = products;
+	} else {
+		data = products.filter((product) => {
+			return product.nombre.toLowerCase().includes(toSearch);
+		});
+	}
+
 	const endOffset = itemOffset + itemsPerPage;
-	const currentItems = products.slice(itemOffset, endOffset);
-	const pageCount = Math.ceil(products.length / itemsPerPage);
+	const currentItems = data.slice(itemOffset, endOffset);
+	const pageCount = Math.ceil(data.length / itemsPerPage);
 
 	const handlePageClick = (event) => {
-		const newOffset = (event.selected * itemsPerPage) % products.length;
+		const newOffset = (event.selected * itemsPerPage) % data.length;
 		setItemOffset(newOffset);
 	};
 
@@ -65,13 +73,18 @@ function Acciones() {
 		}
 	}
 
+	function handleSearch(e) {
+		setToSearch(e.target.value);
+	}
+
 	return (
 		<>
-			<section className="flex justify-between items-center mb-10">
+			<section className="flex justify-between items-center mb-10 flex-col gap-6  sm:flex-row sm:gap-2">
 				<div className="flex gap-4 items-center ">
 					<Icon ico={faBox} type={"Categoria"} />
 					<h1 className="text-[#525252] text-xl">Acciones</h1>
 				</div>
+				<Searcher event={handleSearch} value={toSearch} />
 			</section>
 			<section className="w-full overflow-x-auto lg:overflow-hidden">
 				<table className="w-full bg-white border border-gray-200 rounded-lg min-w-[800px] shadow">
@@ -86,11 +99,17 @@ function Acciones() {
 						</tr>
 					</thead>
 					<tbody className="divide-y divide-gray-200">
-						<PaginationReport
-							currentItems={currentItems}
-							arr={tipes}
-							report={handleReport}
-						/>
+						{currentItems &&
+							currentItems.map((product) => (
+								<Row
+									key={product.id}
+									product={product.nombre}
+									tipo={product.tipos.nombre}
+									id={product.id}
+									stock={product.estado_stock}
+									report={handleReport}
+								/>
+							))}
 					</tbody>
 				</table>
 			</section>

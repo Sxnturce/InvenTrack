@@ -34,7 +34,7 @@ function Dashboard() {
 				</div>
 				<Stats />
 				<section className="w-full grid grid-cols-1 xl:grid-cols-[3fr,1.45fr] gap-6">
-					<div className="w-full  h-[409px] overflow-hidden bg-white rounded p-2 py-4 shadow">
+					<div className="w-full  h-[409px] min-h-[409px] overflow-hidden bg-white rounded p-2 py-4 shadow aspect-square">
 						<LineChart />
 					</div>
 					<Top />

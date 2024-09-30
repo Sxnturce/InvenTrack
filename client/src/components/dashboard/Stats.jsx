@@ -10,9 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function Stats() {
-	const [product, setProduct] = useState({});
 	const [topProduct, setTopProduct] = useState({});
-	const [tipe, setTipe] = useState({});
 	const [topTipe, setTopTipe] = useState({});
 	const [loading, setLoading] = useState(true);
 	const { user } = useContext(AuthContext);
@@ -30,14 +28,6 @@ function Stats() {
 
 				setTopTipe(topSellType);
 				setTopProduct(topSellProduct);
-
-				const [infoProducto, infoTipo] = await Promise.all([
-					Query.getData(`product/${topSellProduct.producto_id}`),
-					Query.getData(`tipo/${topSellType.tipo_id}`),
-				]);
-
-				setProduct(infoProducto.data);
-				setTipe(infoTipo.data);
 			} catch (error) {
 				console.error("Error al cargar los datos:", error);
 			} finally {
@@ -59,7 +49,7 @@ function Stats() {
 						tipo={"Categoria"}
 						title={"Categoria más vendida"}
 						time={`${day}/${month}/${time}`}
-						name={tipe.nombre}
+						name={topTipe.tipo_stat.nombre}
 						price={topTipe.total_dinero}
 					>
 						<Icon ico={faChartBar} type={"Categoria"} />
@@ -68,7 +58,7 @@ function Stats() {
 						tipo={"Producto"}
 						title={"Producto más vendido"}
 						time={`${day}/${month}/${time}`}
-						name={product.nombre}
+						name={topProduct.product_stat.nombre}
 						price={topProduct.total_dinero}
 					>
 						<Icon ico={faChartSimple} type={"Producto"} />

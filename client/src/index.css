@@ -16,15 +16,8 @@
 }
 
 .swal2-toast {
-	background-color: #ad3737 !important;
+	margin-top: 5.5rem;
 	padding: 0.45rem !important;
-	.swal2-x-mark-line-right,
-	.swal2-x-mark-line-left {
-		background-color: rgb(224, 218, 218) !important;
-	}
-	.swal2-title {
-		color: white;
-	}
 }
 
 .swal2-confirm {

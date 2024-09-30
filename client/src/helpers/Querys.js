@@ -64,6 +64,16 @@ class Querys {
     return report
   }
 
-
+  static async updateReport(url, data) {
+    const { estado_envio } = data
+    const updateReport = await clientAxios.patch(`admin/dashboard/${url}`, {
+      estado_envio
+    }, {
+      withCredentials: true,
+    });
+    return updateReport
+  }
 }
+
+
 export default Querys;

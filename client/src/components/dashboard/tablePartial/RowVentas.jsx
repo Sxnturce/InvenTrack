@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 function RowVentas({
 	product,
 	usuario,
@@ -14,9 +12,9 @@ function RowVentas({
 				<td className="p-3">{id}</td>
 				<td className="p-3">{usuario}</td>
 				<td className="p-3">{product}</td>
-				<td className="p-3">{cantidad}</td>
+				<td className="p-3">{cantidad} ud.</td>
+				<td className="p-3">S/ {total_venta}</td>
 				<td className="p-3">{fecha_venta}</td>
-				<td className="p-3">{total_venta}</td>
 			</tr>
 		</>
 	);

@@ -1,10 +1,16 @@
 import productStatSchemma from "../database/schemas/ProductStats.js";
+import { productosSchemma } from "../index.js"
 
 class ProductStats {
   static async getTopSellingProduct() {
     const topProduct = await productStatSchemma.findOne({
       order: [['total_vendido', 'DESC']],
-      limit: 1
+      limit: 1,
+      include: [{
+        model: productosSchemma,
+        as: "product_stat",
+        attributes: ["nombre"]
+      }]
     });
     return topProduct;
   }

@@ -1,10 +1,16 @@
 import tipoStatSchemma from "../database/schemas/TipoStats.js"
+import { tipoSchemma } from "../index.js"
 
 class TipoStats {
   static async getTopSellingType() {
     const topType = await tipoStatSchemma.findOne({
       order: [['total_vendido', 'DESC']],
-      limit: 1
+      limit: 1,
+      include: [{
+        model: tipoSchemma,
+        as: "tipo_stat",
+        attributes: ["nombre"]
+      }]
     });
     return topType;
   }

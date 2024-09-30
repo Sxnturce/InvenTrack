@@ -1,8 +1,17 @@
 import productosSchemma from "../database/schemas/Productos.js";
+import { tipoSchemma } from "../index.js"
 
 class Productos {
   static async getAll() {
-    const products = await productosSchemma.findAll()
+    const products = await productosSchemma.findAll({
+      include: [
+        {
+          model: tipoSchemma,
+          as: 'tipos',
+          attributes: ['nombre']
+        }
+      ]
+    })
     return products
   }
 
@@ -12,7 +21,16 @@ class Productos {
   }
 
   static async getById(id) {
-    const finded = await productosSchemma.findOne({ where: { id } })
+    const finded = await productosSchemma.findOne({
+      where: { id },
+      include: [
+        {
+          model: tipoSchemma,
+          as: 'tipos',
+          attributes: ['nombre']
+        }
+      ]
+    })
     return finded
   }
 
