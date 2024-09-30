@@ -51,12 +51,12 @@ El proyecto sigue la arquitectura **MVC (Modelo-Vista-Controlador)** con las sig
 2. **Instalar dependencias del backend y frontend:**
 
 - Backend
-      cd server
-      npm install
+  cd server
+  npm install
 
 - Frontend
-      cd ../client
-      npm install
+  cd ../client
+  npm install
 
 3. **Configurar la base de datos:**
 
@@ -71,9 +71,9 @@ El proyecto sigue la arquitectura **MVC (Modelo-Vista-Controlador)** con las sig
 4. **Configurar la base de datos:**
 
 - Backend (desde la carpeta /server)
-      npm start
+  npm start
 - Frontend (desde la carpeta /client)
-      npm run dev
+  npm run dev
 
 ---
 
