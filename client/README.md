@@ -1,6 +1,8 @@
 # 🛒 **Frontend del Sistema de Gestión de Inventarios**
 
-![Sistema de Gestión de Inventarios]<img src="https://www.liderlogo.es/wp-content/uploads/2022/12/pasted-image-0-4.png" alt="Sistema de Gestión de Inventarios" width="100%" height="400px" style="object-fit:cover;"/>
+![Sistema de Gestión de Inventarios]
+
+<img src="https://www.liderlogo.es/wp-content/uploads/2022/12/pasted-image-0-4.png" alt="Sistema de Gestión de Inventarios" width="100%" height="400px"/>
 
 ### **Descripción general** 📋
 
@@ -36,17 +38,6 @@ El proyecto sigue una organización que facilita el desarrollo y la escalabilida
             └── LineChart.jsx
         └── 📁helpers
             └── 📁alerts
-                └── Alert.js
-                └── AlertDelete.js
-                └── AlertLogout.js
-                └── AlertQuestion.js
-                └── AlertReport.js
-                └── AlertSmallError.js
-                └── AlertSmallSuccess.js
-            └── MapTipos.js
-            └── MethodDecimal.js
-            └── ParseDate.js
-            └── Querys.js
         └── 📁hooks
             └── StateAuth.jsx
         └── 📁validate
