@@ -1,5 +1,5 @@
 const whitelist = [
-  process.env.FRONT_URL
+  process.env.FRONT_URL,
 ];
 
 const corsOptions = {

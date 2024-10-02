@@ -17,6 +17,7 @@ import { AuthContext } from "../context/authContext.jsx";
 function Login() {
 	const [email, setEmail] = useState("");
 	const [pass, setPass] = useState("");
+	const [spinner, setSpinner] = useState(false);
 
 	const [errEmail, setErrEmail] = useState("");
 	const [errPass, setErrPass] = useState("");
@@ -78,7 +79,7 @@ function Login() {
 				return;
 			}
 		}
-
+		setSpinner(true);
 		try {
 			const usuario = await clientAxios.post(
 				"user",
@@ -89,13 +90,14 @@ function Login() {
 				{ withCredentials: true }
 			);
 			formRef.current.reset();
-
+			setSpinner(false);
 			resetStates();
 			setAuth(true);
 			setUser(usuario.data.user);
 			return navigate("/admin");
 		} catch (e) {
 			const { msg } = e?.response?.data ?? e;
+			setSpinner(false);
 			if (e.response.status === 404) return setErrEmail(msg);
 			if (e.response.status === 400) return setErrPass(msg);
 			AlertSmall(msg, "");
@@ -144,6 +146,7 @@ function Login() {
 						}}
 						errMsg={errPass}
 					/>
+					{spinner && <span className="loader"></span>}
 					<Button value={"Login"} />
 				</form>
 				<div className="flex justify-between text-[0.8rem] text-center sm:text-sm text-gray-500 underline ">
