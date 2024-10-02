@@ -19,8 +19,7 @@
 	},
 	"homepage": "https://github.com/Sxnturce/InvenTrack#readme",
 	"devDependencies": {
-		"nodemon": "3.1.4",
-		"picocolors": "1.1.0"
+		"nodemon": "3.1.4"
 	},
 	"dependencies": {
 		"bcryptjs": "^2.4.3",
@@ -31,6 +30,7 @@
 		"jsonwebtoken": "9.0.2",
 		"mysql2": "3.11.3",
 		"nodemailer": "6.9.15",
+		"picocolors": "1.1.0",
 		"sequelize": "6.37.3",
 		"zod": "3.23.8"
 	}
