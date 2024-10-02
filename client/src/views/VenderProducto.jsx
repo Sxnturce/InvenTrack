@@ -9,7 +9,7 @@ import {
 	faCartShopping,
 	faQuestionCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { ventaValidate } from "../../../server/schemes/VentaValidate.js";
+import { ventaValidate } from "../validate/ventaValidate";
 import { useState, useEffect, useContext, useRef } from "react";
 import Query from "../helpers/Querys";
 import { AuthContext } from "../context/authContext";
