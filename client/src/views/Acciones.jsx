@@ -18,6 +18,8 @@ function Acciones() {
 	const itemsPerPage = 12;
 	const navigate = useNavigate();
 
+	const { user } = useContext(AuthContext);
+
 	useEffect(() => {
 		const { venta } = location.state || {};
 		if (venta) {

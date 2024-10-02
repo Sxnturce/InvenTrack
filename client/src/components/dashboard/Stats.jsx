@@ -1,6 +1,6 @@
 import Icon from "./partials/Icon";
 import { useEffect, useState, useContext } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Query from "../../helpers/Querys.js";
 import Card from "./partials/Card";
 import { AuthContext } from "../../context/authContext";

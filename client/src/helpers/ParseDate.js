@@ -3,7 +3,10 @@ function ParseDate(fecha) {
   const options = {
     year: 'numeric',
     month: 'short',
-    day: 'numeric'
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true
   };
   const formated = date.toLocaleString("es-ES", options);
   return formated;

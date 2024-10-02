@@ -108,3 +108,13 @@ tr:nth-child(even) {
 		}
 	}
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.image-404 {
+	filter: drop-shadow(6px 6px 8px rgba(15, 15, 15, 0.6));
+}

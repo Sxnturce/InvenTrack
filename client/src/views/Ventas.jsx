@@ -19,7 +19,7 @@ function Ventas() {
 		async function getVentas() {
 			try {
 				const ventas = await Query.getData("ventas");
-				setData(ventas.data);
+				setData(ventas.data.reverse());
 			} catch (e) {
 				navigate("/", { state: { caduced: true } });
 			}

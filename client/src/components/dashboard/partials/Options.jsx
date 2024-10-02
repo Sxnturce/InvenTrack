@@ -41,7 +41,7 @@ function Options() {
 						<FontAwesomeIcon icon={faGear} />
 					</Link>
 					<Link className="flex gap-2 items-center justify-between text-gray-500 hover:text-black hover:font-semibold transition-all ease-in-out">
-						Usuario
+						Perfil
 						<FontAwesomeIcon icon={faUser} />
 					</Link>
 					<button

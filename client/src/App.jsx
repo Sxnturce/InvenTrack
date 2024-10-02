@@ -9,8 +9,9 @@ import OlvidePass from "./views/OlvidePass";
 import ComprobateCode from "./views/ComprobateCode";
 import ChangePass from "./views/ChangePass";
 import ValidateToken from "./views/ValidateToken";
+import NotFound from "./views/NotFound";
 
-// Views dashboard (administrativas)
+// Views dashboard (privadas)
 import Dashboard from "./views/Dashboard";
 import Acciones from "./views/Acciones";
 import Solicitud from "./views/Solicitudes";
@@ -34,8 +35,8 @@ function App() {
 						<Route path="change-pass/:code" element={<ChangePass />} />
 						<Route path="confirmation/:token" element={<ValidateToken />} />
 					</Route>
-
-					{/* Rutas privadas (con `ProtectedRoute` para protegerlas) */}
+					<Route path="*" element={<NotFound route={"/"} />} />
+					{/* Rutas privadas */}
 					<Route
 						element={
 							<ProtectedRoute>
@@ -51,6 +52,10 @@ function App() {
 						<Route path="product" element={<CrearProducto />} />
 						<Route path="product/:id" element={<EditarProducto />} />
 						<Route path="vender-product/:id" element={<VenderProducto />} />
+						<Route
+							path="*"
+							element={<NotFound route={"/admin"} admin={true} />}
+						/>
 					</Route>
 				</Routes>
 			</BrowserRouter>

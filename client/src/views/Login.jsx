@@ -24,7 +24,7 @@ function Login() {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const { auth, setAuth } = useContext(AuthContext);
+	const { auth, setAuth, setUser } = useContext(AuthContext);
 
 	useEffect(() => {
 		function isUpdated() {
@@ -80,7 +80,7 @@ function Login() {
 		}
 
 		try {
-			await clientAxios.post(
+			const usuario = await clientAxios.post(
 				"user",
 				{
 					correo: result.data.correo,
@@ -89,8 +89,10 @@ function Login() {
 				{ withCredentials: true }
 			);
 			formRef.current.reset();
+
 			resetStates();
 			setAuth(true);
+			setUser(usuario.data.user);
 			return navigate("/admin");
 		} catch (e) {
 			const { msg } = e?.response?.data ?? e;

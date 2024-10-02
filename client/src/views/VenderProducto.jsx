@@ -75,6 +75,7 @@ function VenderProducto() {
 			const { issues } = result.error;
 			if (issues[0].path[0] === "usuario_id") {
 				setProductoErr(issues[0].message);
+				console.log(issues);
 				return;
 			}
 
