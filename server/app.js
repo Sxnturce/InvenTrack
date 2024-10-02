@@ -5,6 +5,7 @@ import routerAdmin from "./routes/adminRoutes.js"
 import connectDB from "./helpers/conexionDB.js";
 import pc from "picocolors"
 import cookieParser from "cookie-parser";
+import cors from "cors"
 import corsOptions from "./middlewares/cors.js";
 dotenv.config()
 
@@ -15,7 +16,7 @@ await connectDB()
 const server = express()
 
 //Middlewares
-server.use(corsOptions())
+server.use(cors(corsOptions))
 server.use(cookieParser());
 server.use(express.json())
 
@@ -26,6 +27,7 @@ server.listen(port, () => {
   console.log(pc.magenta(`Server listening in URL: ${pc.white(`http://localhost:${port}`)} 🚀`));
 })
 
+console.log(process.env.FRONT_URL);
 
 //Middleware para la ruta de la API
 server.use("/api/user/", router)

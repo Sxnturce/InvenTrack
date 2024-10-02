@@ -1,13 +1,18 @@
-import cors from "cors";
+const whitelist = [
+  process.env.FRONT_URL
+];
 
-function corsOptions() {
-  const corsOpt = {
-    origin: `${process.env.FRONT_URL}`,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization']
-  }
-  return cors(corsOpt)
-}
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
 
 export default corsOptions;
