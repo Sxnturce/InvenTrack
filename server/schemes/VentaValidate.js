@@ -1,4 +1,4 @@
-import z from "zod"
+import { z } from "zod"
 
 const ventaValidateSchemma = z.object({
   usuario_id: z.number({
