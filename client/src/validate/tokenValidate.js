@@ -1,4 +1,4 @@
-import z from "zod"
+import { z } from "zod"
 
 const tokenPassSchemma = z.object({
   token_pass: z.number({
