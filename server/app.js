@@ -7,6 +7,7 @@ import pc from "picocolors"
 import cookieParser from "cookie-parser";
 import cors from "cors"
 import corsOptions from "./middlewares/cors.js";
+import path from "path";
 dotenv.config()
 
 //Conexion a la DB
@@ -27,8 +28,12 @@ server.listen(port, () => {
   console.log(pc.magenta(`Server listening in URL: ${pc.white(`http://localhost:${port}`)} 🚀`));
 })
 
-console.log(process.env.FRONT_URL);
-
 //Middleware para la ruta de la API
 server.use("/api/user/", router)
-server.use("/api/admin/dashboard", routerAdmin) 
+server.use("/api/admin/dashboard", routerAdmin)
+
+// Redirigir todas las demás solicitudes a index.html
+server.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
+
