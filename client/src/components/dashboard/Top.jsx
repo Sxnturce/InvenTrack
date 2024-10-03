@@ -17,9 +17,10 @@ function Top() {
 			try {
 				const info = await Query.getData("get-top-users");
 				setUsers(info.data.topUserSales);
-				setLoading(false);
 			} catch (e) {
 				console.log(e);
+			} finally {
+				setLoading(false);
 			}
 		}
 		getTop();
@@ -34,7 +35,7 @@ function Top() {
 					</span>
 				</section>
 				{load ? (
-					<span className="loader loader-gray"></span>
+					<span className="loader"></span>
 				) : (
 					<section className="flex flex-col gap-3">
 						{users.map((user, i) => {

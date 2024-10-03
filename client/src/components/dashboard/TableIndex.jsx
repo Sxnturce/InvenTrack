@@ -21,9 +21,10 @@ function TableIndex() {
 			try {
 				const productos = await Query.getData("all-products");
 				setProducts(productos.data);
-				setLoading(false);
 			} catch (e) {
 				console.log(e);
+			} finally {
+				setLoading(false);
 			}
 		}
 		getTipos();
@@ -84,41 +85,47 @@ function TableIndex() {
 					</Link>
 				</div>
 			</section>
-			<section className="w-full overflow-x-auto lg:overflow-hidden">
-				<table className="w-full bg-white border border-gray-200 rounded-lg min-w-[800px] shadow">
-					<thead className=" text-gray-900 bg-[#f7f7f7] text-left">
-						<tr>
-							<th className="p-4 font-semibold" slot="#">
-								#
-							</th>
-							<th className="p-4 font-semibold">Nombre</th>
-							<th className="p-4 font-semibold">Tipo</th>
-							<th className="p-4 font-semibold">Stock</th>
-							<th className="p-4 font-semibold">Cantidad en Stock</th>
-							<th className="p-4 font-semibold">Acciones</th>
-						</tr>
-					</thead>
-					{loading ? (
-						<span className="loader loader-gray"></span>
-					) : (
-						<tbody className="divide-y divide-gray-200">
-							{currentItems &&
-								currentItems.map((product) => (
-									<Row
-										key={product.id}
-										product={product.nombre}
-										tipo={product.tipos.nombre}
-										cantidad={product.cantidad}
-										id={product.id}
-										estado={product.estado_stock}
-										del={handleDelete}
-									/>
-								))}
-						</tbody>
-					)}
-				</table>
-			</section>
-			<PaginateCount pageCount={pageCount} handlePageClick={handlePageClick} />
+			{loading ? (
+				<span className="loader"></span>
+			) : (
+				<>
+					<section className="w-full overflow-x-auto lg:overflow-hidden">
+						<table className="w-full bg-white border border-gray-200 rounded-lg min-w-[800px] shadow">
+							<thead className=" text-gray-900 bg-[#f7f7f7] text-left">
+								<tr>
+									<th className="p-4 font-semibold" slot="#">
+										#
+									</th>
+									<th className="p-4 font-semibold">Nombre</th>
+									<th className="p-4 font-semibold">Tipo</th>
+									<th className="p-4 font-semibold">Stock</th>
+									<th className="p-4 font-semibold">Cantidad en Stock</th>
+									<th className="p-4 font-semibold">Acciones</th>
+								</tr>
+							</thead>
+
+							<tbody className="divide-y divide-gray-200">
+								{currentItems &&
+									currentItems.map((product) => (
+										<Row
+											key={product.id}
+											product={product.nombre}
+											tipo={product.tipos.nombre}
+											cantidad={product.cantidad}
+											id={product.id}
+											estado={product.estado_stock}
+											del={handleDelete}
+										/>
+									))}
+							</tbody>
+						</table>
+					</section>
+					<PaginateCount
+						pageCount={pageCount}
+						handlePageClick={handlePageClick}
+					/>
+				</>
+			)}
 		</>
 	);
 }

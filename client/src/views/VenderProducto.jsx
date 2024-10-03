@@ -31,6 +31,7 @@ function VenderProducto() {
 	const [tipoErr, setTipoErr] = useState("");
 	const [cantidadErr, setCantidadErr] = useState("");
 	const [tiendaErr, setTiendaErr] = useState("");
+	const [spinner, setSpinner] = useState(false);
 	const tiendas = [
 		"Impresiones SAC",
 		"Empresa Mecatronica",
@@ -93,13 +94,15 @@ function VenderProducto() {
 			setTiendaErr("Seleccione una tienda disponible.");
 			return;
 		}
-
+		setSpinner(true);
 		try {
 			await Query.createVenta("create-venta", result.data);
 			formRef.current.reset();
+			setSpinner(false);
 			navigate("/admin/actions", { state: { venta: true } });
 		} catch (e) {
 			const { err } = e.response.data;
+			setSpinner(false);
 			setProductoErr(err);
 		}
 	}
@@ -111,7 +114,11 @@ function VenderProducto() {
 
 	return (
 		<>
-			{!loader && (
+			{loader ? (
+				<div className="flex w-full h-[300px]  sm:h-[500px] items-center justify-center">
+					<span className="loader block"></span>
+				</div>
+			) : (
 				<main>
 					<div className="flex gap-4 items-center text-[#525252]">
 						<Icon ico={faCartShopping} type={"Solicitud"} />
@@ -176,6 +183,7 @@ function VenderProducto() {
 									setTienda(e.target.value);
 								}}
 							/>
+							{spinner && <span className="spinner-form"></span>}
 							<Button value={"Vender producto"} type={"vender"} />
 						</form>
 					</section>

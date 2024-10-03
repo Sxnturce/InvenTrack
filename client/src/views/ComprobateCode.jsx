@@ -12,6 +12,7 @@ function ComprobateCode() {
 	const [code, setCode] = useState("");
 	const [length, setLength] = useState(0);
 	const [errPass, setErrPass] = useState("");
+	const [spinner, setSpinner] = useState(false);
 
 	const formRef = useRef(null);
 	const navigate = useNavigate();
@@ -38,11 +39,12 @@ function ComprobateCode() {
 				return;
 			}
 		}
-
+		setSpinner(true);
 		try {
 			await clientAxios.post("user/comprobate-token-pass", {
 				token_pass: result.data.token_pass,
 			});
+			setSpinner(false);
 			formRef.current.reset();
 			resetStates();
 			return navigate(`/change-pass/${result.data.token_pass}`, {
@@ -51,6 +53,7 @@ function ComprobateCode() {
 		} catch (e) {
 			const { err } = e.response?.data;
 			setErrPass(err);
+			setSpinner(false);
 		}
 	}
 
@@ -83,6 +86,7 @@ function ComprobateCode() {
 						length={length}
 						errMsg={errPass}
 					/>
+					{spinner && <span className="spinner-form"></span>}
 					<Button value={"Comprobar codigo"} />
 				</form>
 				<div className="flex justify-between text-[0.8rem] text-center sm:text-sm text-gray-500 underline ">

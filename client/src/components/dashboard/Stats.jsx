@@ -31,7 +31,6 @@ function Stats() {
 				setTopTipe(topSellType);
 				setTopProduct(topSellProduct);
 			} catch (error) {
-				console.error("Error al cargar los datos:", error);
 				navigate("/", { state: { caduced: true } });
 			} finally {
 				setLoading(false);

@@ -14,6 +14,7 @@ function ChangePass() {
 	const formRef = useRef(null);
 	const location = useLocation();
 	const navigate = useNavigate();
+	const [spinner, setSpinner] = useState(false);
 
 	const [errPass, setErrPass] = useState("");
 	const [errRepet, setErrRepet] = useState("");
@@ -51,15 +52,18 @@ function ChangePass() {
 		if (result.data.pass !== repet) {
 			return setErrRepet("Las contraseñas no coinciden.");
 		}
+		setSpinner(true);
 		try {
 			await clientAxios.post(`user/change-password/${code}`, {
 				pass: result.data.pass,
 			});
+			setSpinner(false);
 			formRef.current.reset();
 			resetStates();
 			navigate("/", { state: { update: true } });
 		} catch (e) {
 			const { msg } = e.response?.data;
+			setSpinner(false);
 			setErrPass(msg);
 		}
 	}
@@ -107,6 +111,7 @@ function ChangePass() {
 						}}
 						errMsg={errRepet}
 					/>
+					{spinner && <span className="spinner-form"></span>}
 					<Button value={"Change Password"} />
 				</form>
 				<div className="flex justify-end text-[0.8rem] text-center sm:text-sm text-gray-500 underline ">

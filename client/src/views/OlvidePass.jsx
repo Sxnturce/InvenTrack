@@ -12,6 +12,7 @@ function OlvidePass() {
 	const [email, setEmail] = useState("");
 	const [errEmail, setErrEmail] = useState("");
 	const formRef = useRef(null);
+	const [spinner, setSpinner] = useState(false);
 
 	const navigate = useNavigate();
 	useEffect(() => {
@@ -32,16 +33,18 @@ function OlvidePass() {
 				return;
 			}
 		}
-
+		setSpinner(true);
 		try {
 			await clientAxios.post("user/forgot-pass", {
 				correo: result.data.correo,
 			});
+			setSpinner(false);
 			formRef.current.reset();
 			resetStates();
 			return navigate("/comprobation");
 		} catch (e) {
 			const { msg } = e.response?.data;
+			setSpinner(false);
 			setErrEmail(msg);
 		}
 	}
@@ -78,6 +81,7 @@ function OlvidePass() {
 							setEmail(e.target.value);
 						}}
 					/>
+					{spinner && <span className="spinner-form"></span>}
 					<Button value={"Solicitar codigo"} />
 				</form>
 				<div className="flex justify-between text-[0.8rem] text-center sm:text-sm text-gray-500 underline ">

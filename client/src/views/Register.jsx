@@ -17,6 +17,7 @@ function Register() {
 	const [pass, setPass] = useState("");
 	const [repet, setRepet] = useState("");
 
+	const [spinner, setSpinner] = useState(false);
 	const [errNombre, setErrNombre] = useState("");
 	const [errEmail, setErrEmail] = useState("");
 	const [errPass, setErrPass] = useState("");
@@ -59,6 +60,7 @@ function Register() {
 		if (pass !== repet) {
 			return setErrRepet("Las contraseñas no coinciden.");
 		}
+		setSpinner(true);
 		try {
 			const success = await clientAxios.post("user/register", {
 				nombre: result.data.nombre,
@@ -66,6 +68,7 @@ function Register() {
 				pass: result.data.pass,
 			});
 			const { msg } = success.data;
+			setSpinner(false);
 			Alert(
 				msg,
 				"Cuenta creada correctamente virifica tu email para poder ingressar",
@@ -76,6 +79,7 @@ function Register() {
 			return;
 		} catch (e) {
 			const { msg } = e.response?.data;
+			setSpinner(false);
 			AlertSmall(msg, "");
 		}
 	}
@@ -140,6 +144,7 @@ function Register() {
 						}}
 						errMsg={errRepet}
 					/>
+					{spinner && <span className="spinner-form"></span>}
 					<Button value={"Create Account"} />
 				</form>
 				<div className="flex justify-between text-[0.8rem] text-center sm:text-sm text-gray-500 underline ">

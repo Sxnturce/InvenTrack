@@ -5,6 +5,7 @@ import methodDecimal from "../helpers/MethodDecimal";
 import Icon from "../components/dashboard/partials/Icon";
 import Query from "../helpers/Querys.js";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 import { productValidate } from "../validate/productoValidate.js";
 import { useState, useEffect, useRef } from "react";
 import Alert from "../helpers/alerts/Alert";
@@ -17,16 +18,19 @@ function CrearProducto() {
 	const [precio, setPrecio] = useState("");
 	const [stock, setStock] = useState("");
 	const [categorias, setCategorias] = useState([]);
+	const [spinner, setSpinner] = useState(false);
 	const formRef = useRef(null);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		async function getCategorias() {
 			try {
 				const tipos = await Query.getData("all-tipes");
 				setCategorias(tipos);
-				setLoading(false);
 			} catch (e) {
-				console.log(e);
+				navigate("/", { state: { caduced: true } });
+			} finally {
+				setLoading(false);
 			}
 		}
 		getCategorias();
@@ -87,7 +91,7 @@ function CrearProducto() {
 			}
 		}
 		const { nombre: name, estado_stock, precio: price, tipo_id } = result.data;
-
+		setSpinner(true);
 		try {
 			await Query.createProduct(
 				"create",
@@ -98,6 +102,7 @@ function CrearProducto() {
 				estado_stock
 			);
 			formRef.current.reset();
+			setSpinner(false);
 			resetValues();
 			Alert(
 				"Creado Correcamtente",
@@ -107,6 +112,7 @@ function CrearProducto() {
 			);
 		} catch (e) {
 			const { msg } = e.response?.data;
+			setSpinner(false);
 			setNombreErr(msg);
 		}
 	}
@@ -130,7 +136,11 @@ function CrearProducto() {
 	}
 	return (
 		<>
-			{!load && (
+			{load ? (
+				<div className="flex w-full h-[300px]  sm:h-[500px] items-center justify-center">
+					<span className="loader block"></span>
+				</div>
+			) : (
 				<main>
 					<div className="flex gap-4 items-center text-[#525252]">
 						<Icon ico={faPlus} />
@@ -190,6 +200,7 @@ function CrearProducto() {
 									setStock(e.target.value);
 								}}
 							/>
+							{spinner && <span className="spinner-form"></span>}
 							<Button value={"Crear producto"} type={"crear"} />
 						</form>
 					</section>

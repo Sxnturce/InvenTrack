@@ -17,6 +17,7 @@ function CrearProducto() {
 	const [precio, setPrecio] = useState("");
 	const [stock, setStock] = useState("");
 	const [load, setLoading] = useState(true);
+	const [spinner, setSpinner] = useState(false);
 
 	const [nombreErr, setNombreErr] = useState("");
 	const [tipoErr, setTipoErr] = useState("");
@@ -118,6 +119,9 @@ function CrearProducto() {
 			console.log(e);
 			const { err } = e.response?.data;
 			setNombreErr(err);
+			setSpinner(false);
+		} finally {
+			setSpinner(false);
 		}
 	}
 
@@ -140,7 +144,11 @@ function CrearProducto() {
 	}
 	return (
 		<>
-			{!load && (
+			{load ? (
+				<div className="flex w-full h-[300px]  sm:h-[500px] items-center justify-center">
+					<span className="loader block"></span>
+				</div>
+			) : (
 				<main>
 					<div className="flex gap-4 items-center text-[#525252]">
 						<Icon ico={faShapes} type={"Categoria"} />
@@ -200,6 +208,7 @@ function CrearProducto() {
 									setStock(e.target.value);
 								}}
 							/>
+							{spinner && <span className="spinner-form"></span>}
 							<Button value={"Guardar cambios"} type={"editar"} />
 						</form>
 					</section>

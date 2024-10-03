@@ -5,7 +5,7 @@ function Image({ img, contain }) {
 				<img
 					src={img}
 					alt="login-img"
-					className={`w-full max-w-[350px] lg:max-w-none h-auto lg:h-[500px] mx-auto ${
+					className={`w-full max-w-[350px] lg:max-w-none h-auto lg:h-[500px] aspect-auto mx-auto ${
 						contain && "object-contain"
 					}`}
 				/>

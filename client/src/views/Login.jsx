@@ -146,7 +146,7 @@ function Login() {
 						}}
 						errMsg={errPass}
 					/>
-					{spinner && <span className="loader loader-black"></span>}
+					{spinner && <span className="spinner-form"></span>}
 					<Button value={"Login"} />
 				</form>
 				<div className="flex justify-between text-[0.8rem] text-center sm:text-sm text-gray-500 underline ">

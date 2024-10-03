@@ -15,6 +15,7 @@ function Acciones() {
 	const [itemOffset, setItemOffset] = useState(0);
 	const location = useLocation();
 	const [toSearch, setToSearch] = useState("");
+	const [loading, setLoading] = useState(true);
 	const itemsPerPage = 12;
 	const navigate = useNavigate();
 
@@ -34,6 +35,8 @@ function Acciones() {
 				setProducts(productos.data);
 			} catch (e) {
 				navigate("/", { state: { caduced: true } });
+			} finally {
+				setLoading(false);
 			}
 		}
 		getData();
@@ -92,34 +95,43 @@ function Acciones() {
 				</div>
 				<Searcher event={handleSearch} value={toSearch} />
 			</section>
-			<section className="w-full overflow-x-auto lg:overflow-hidden">
-				<table className="w-full bg-white border border-gray-200 rounded-lg min-w-[800px] shadow">
-					<thead className=" text-gray-900 bg-[#f7f7f7] text-left">
-						<tr>
-							<th className="p-4 font-semibold">#</th>
-							<th className="p-4 font-semibold">Nombre</th>
-							<th className="p-4 font-semibold">Tipo</th>
-							<th className="p-4 font-semibold">Stock</th>
-							<th className="p-4 font-semibold">Reporte</th>
-							<th className="p-4 font-semibold">Vender</th>
-						</tr>
-					</thead>
-					<tbody className="divide-y divide-gray-200">
-						{currentItems &&
-							currentItems.map((product) => (
-								<Row
-									key={product.id}
-									product={product.nombre}
-									tipo={product.tipos.nombre}
-									id={product.id}
-									stock={product.estado_stock}
-									report={handleReport}
-								/>
-							))}
-					</tbody>
-				</table>
-			</section>
-			<PaginateCount pageCount={pageCount} handlePageClick={handlePageClick} />
+			{loading ? (
+				<span className="loader block"></span>
+			) : (
+				<>
+					<section className="w-full overflow-x-auto lg:overflow-hidden">
+						<table className="w-full bg-white border border-gray-200 rounded-lg min-w-[800px] shadow">
+							<thead className=" text-gray-900 bg-[#f7f7f7] text-left">
+								<tr>
+									<th className="p-4 font-semibold">#</th>
+									<th className="p-4 font-semibold">Nombre</th>
+									<th className="p-4 font-semibold">Tipo</th>
+									<th className="p-4 font-semibold">Stock</th>
+									<th className="p-4 font-semibold">Reporte</th>
+									<th className="p-4 font-semibold">Vender</th>
+								</tr>
+							</thead>
+							<tbody className="divide-y divide-gray-200">
+								{currentItems &&
+									currentItems.map((product) => (
+										<Row
+											key={product.id}
+											product={product.nombre}
+											tipo={product.tipos.nombre}
+											id={product.id}
+											stock={product.estado_stock}
+											report={handleReport}
+										/>
+									))}
+							</tbody>
+						</table>
+					</section>
+					<PaginateCount
+						pageCount={pageCount}
+						handlePageClick={handlePageClick}
+					/>
+				</>
+			)}
 		</>
 	);
 }
