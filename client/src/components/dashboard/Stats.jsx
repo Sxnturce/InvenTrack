@@ -52,7 +52,7 @@ function Stats() {
 						tipo={"Categoria"}
 						title={"Categoria más vendida"}
 						time={`${day}/${month}/${time}`}
-						name={topTipe?.tipo_stat?.nombre || "No hay categoria destacada."}
+						name={topTipe?.tipo_stat?.nombre || "Aun nada"}
 						price={topTipe?.total_dinero}
 					>
 						<Icon ico={faChartBar} type={"Categoria"} />
@@ -61,7 +61,7 @@ function Stats() {
 						tipo={"Producto"}
 						title={"Producto más vendido"}
 						time={`${day}/${month}/${time}`}
-						name={topProduct?.product_stat?.nombre || "No producto destacado."}
+						name={topProduct?.product_stat?.nombre || "Aun nada"}
 						price={topProduct?.total_dinero}
 					>
 						<Icon ico={faChartSimple} type={"Producto"} />
