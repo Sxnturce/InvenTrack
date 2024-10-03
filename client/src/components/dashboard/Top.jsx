@@ -43,7 +43,7 @@ function Top() {
 								<Sellers
 									key={user.id}
 									name={user.nombre_usuario}
-									img={i === 1 ? person02 : person03}
+									img={i === 1 ? person03 : person04}
 									position={(i + 1).toString()}
 									cantidad={user.cantidad_vendida}
 									dinero={user.ventas_totales}
