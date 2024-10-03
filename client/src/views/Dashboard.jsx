@@ -10,11 +10,11 @@ import { useLocation } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 
 function Dashboard() {
-	const { user } = useContext(AuthContext);
+	const { user, auth } = useContext(AuthContext);
 	const location = useLocation();
 
 	useEffect(() => {
-		if (!user) {
+		if (!auth) {
 			location("/");
 			return;
 		}

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-function RowReport({ product, tipo, stock, id, report }) {
+function RowReport({ product, tipo, stock, id, report, spinner }) {
 	const stateStock =
 		stock === "Bajo"
 			? "bg-gray-500"
@@ -23,10 +23,11 @@ function RowReport({ product, tipo, stock, id, report }) {
 					<button
 						data-report={id}
 						onClick={report}
-						className="py-1 px-2 rounded bg-amber-500 text-white  text-sm text-center hover:bg-amber-600 transition-colors ease-in-out"
+						className="py-1 px-2 rounded mr-4 bg-amber-500 text-white  text-sm text-center hover:bg-amber-600 transition-colors ease-in-out"
 					>
 						Generar Reporte
 					</button>
+					{+spinner.id === id && <span className="spinner-form-small"></span>}
 				</td>
 				<td>
 					<Link

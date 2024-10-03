@@ -15,6 +15,7 @@ function Solicitud() {
 	const [data, setData] = useState([]);
 	const [itemOffset, setItemOffset] = useState(0);
 	const [loading, setLoading] = useState(true);
+	const [spinner, setSpinner] = useState({ id: null });
 	const itemsPerPage = 10;
 	const [toSearch, setToSearch] = useState("");
 	const navigate = useNavigate();
@@ -55,17 +56,21 @@ function Solicitud() {
 	async function handleChange({ target }) {
 		const value = target.value;
 		const id = target.closest("select").getAttribute("data-id");
+		setSpinner({ id: id });
 		const result = partialPedidoValidate({ estado_envio: value });
 
 		if (!result.success) {
 			AlertSmall("Ocurrio un error");
+			setSpinner({ id: null });
 			return;
 		}
 		try {
 			await Query.updateReport(`generar-pedido/${id}`, result.data);
+			setSpinner({ id: null });
 			alertSmallSuccess();
 		} catch (e) {
 			AlertSmall("Ocurrio un error");
+			setSpinner({ id: null });
 		}
 	}
 
@@ -112,6 +117,7 @@ function Solicitud() {
 												estado={report.estado_envio}
 												fecha={ParseDate(report.fecha_pedido)}
 												event={handleChange}
+												spinner={spinner}
 											/>
 										))}
 							</tbody>

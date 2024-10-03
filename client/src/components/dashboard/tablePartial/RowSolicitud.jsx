@@ -7,6 +7,7 @@ function RowReport({
 	fecha,
 	event,
 	order,
+	spinner,
 }) {
 	const states = ["enviado", "entregado", "pendiente"];
 	const lower = estado.toLowerCase();
@@ -30,7 +31,7 @@ function RowReport({
 						data-id={id}
 						onChange={event}
 						defaultValue={estado.toLowerCase()}
-						className={`py-[0.22rem] px-2 rounded border-2 ${color} border-gray-200 outline-none focus:ring-2 text-sm cursor-pointer`}
+						className={`py-[0.22rem] px-2 rounded border-2 ${color} border-gray-200 outline-none focus:ring-2 mr-5 text-sm cursor-pointer`}
 					>
 						{states.map((state, index) => {
 							return (
@@ -40,6 +41,7 @@ function RowReport({
 							);
 						})}
 					</select>
+					{+spinner.id === id && <span className="spinner-form-small"></span>}
 				</td>
 				<td className="p-2">{cantidad} ud.</td>
 				<td className="p-2">{fecha}</td>

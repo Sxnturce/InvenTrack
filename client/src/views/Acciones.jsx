@@ -14,6 +14,7 @@ function Acciones() {
 	const [products, setProducts] = useState([]);
 	const [itemOffset, setItemOffset] = useState(0);
 	const location = useLocation();
+	const [spinner, setSpinner] = useState({ id: null });
 	const [toSearch, setToSearch] = useState("");
 	const [loading, setLoading] = useState(true);
 	const itemsPerPage = 12;
@@ -63,8 +64,10 @@ function Acciones() {
 
 	async function handleReport({ target }) {
 		const id = target.getAttribute("data-report");
+		setSpinner({ id: id });
 		const result = await AlertReport(id);
 		if (result) {
+			setSpinner({ id: null });
 			try {
 				await Query.createReport("generar-pedido", {
 					...result,
@@ -80,6 +83,7 @@ function Acciones() {
 				);
 			}
 		}
+		setSpinner({ id: null });
 	}
 
 	function handleSearch(e) {
@@ -121,6 +125,7 @@ function Acciones() {
 											id={product.id}
 											stock={product.estado_stock}
 											report={handleReport}
+											spinner={spinner}
 										/>
 									))}
 							</tbody>

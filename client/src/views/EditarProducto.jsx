@@ -102,7 +102,7 @@ function CrearProducto() {
 			}
 		}
 		const { nombre: name, estado_stock, precio: price, tipo_id } = result.data;
-
+		setSpinner(true);
 		try {
 			await Query.updateProduct(
 				`product/${id}`,
