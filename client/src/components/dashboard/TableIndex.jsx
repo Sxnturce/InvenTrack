@@ -13,6 +13,7 @@ function TableIndex() {
 	const [products, setProducts] = useState([]);
 	const [itemOffset, setItemOffset] = useState(0);
 	const [toSearch, setToSearch] = useState("");
+	const [loading, setLoading] = useState(true);
 	const itemsPerPage = 10;
 
 	useEffect(() => {
@@ -20,6 +21,7 @@ function TableIndex() {
 			try {
 				const productos = await Query.getData("all-products");
 				setProducts(productos.data);
+				setLoading(false);
 			} catch (e) {
 				console.log(e);
 			}
@@ -96,20 +98,24 @@ function TableIndex() {
 							<th className="p-4 font-semibold">Acciones</th>
 						</tr>
 					</thead>
-					<tbody className="divide-y divide-gray-200">
-						{currentItems &&
-							currentItems.map((product) => (
-								<Row
-									key={product.id}
-									product={product.nombre}
-									tipo={product.tipos.nombre}
-									cantidad={product.cantidad}
-									id={product.id}
-									estado={product.estado_stock}
-									del={handleDelete}
-								/>
-							))}
-					</tbody>
+					{loading ? (
+						<span className="loader loader-gray"></span>
+					) : (
+						<tbody className="divide-y divide-gray-200">
+							{currentItems &&
+								currentItems.map((product) => (
+									<Row
+										key={product.id}
+										product={product.nombre}
+										tipo={product.tipos.nombre}
+										cantidad={product.cantidad}
+										id={product.id}
+										estado={product.estado_stock}
+										del={handleDelete}
+									/>
+								))}
+						</tbody>
+					)}
 				</table>
 			</section>
 			<PaginateCount pageCount={pageCount} handlePageClick={handlePageClick} />

@@ -122,7 +122,6 @@ input::-webkit-inner-spin-button {
 .loader {
 	width: 48px;
 	height: 48px;
-	border: 5px solid #1b1b1b;
 	border-bottom-color: transparent;
 	border-radius: 50%;
 	margin: 0 auto;
@@ -131,6 +130,13 @@ input::-webkit-inner-spin-button {
 	animation: rotation 1s linear infinite;
 }
 
+.loader-black {
+	border: 5px solid #1b1b1b;
+}
+
+.loader-gray {
+	border: 5px solid #6b6a6a;
+}
 @keyframes rotation {
 	0% {
 		transform: rotate(0deg);

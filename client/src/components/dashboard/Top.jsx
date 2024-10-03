@@ -10,12 +10,14 @@ import person05 from "/img/person_05.webp";
 
 function Top() {
 	const [users, setUsers] = useState([]);
+	const [load, setLoading] = useState(true);
 
 	useEffect(() => {
 		async function getTop() {
 			try {
 				const info = await Query.getData("get-top-users");
 				setUsers(info.data.topUserSales);
+				setLoading(false);
 			} catch (e) {
 				console.log(e);
 			}
@@ -31,20 +33,24 @@ function Top() {
 						<Icon ico={faRankingStar} type={"Seller"} />
 					</span>
 				</section>
-				<section className="flex flex-col gap-3">
-					{users.map((user, i) => {
-						return (
-							<Sellers
-								key={user.id}
-								name={user.nombre_usuario}
-								img={i === 1 ? person02 : person03}
-								position={(i + 1).toString()}
-								cantidad={user.cantidad_vendida}
-								dinero={user.ventas_totales}
-							/>
-						);
-					})}
-				</section>
+				{load ? (
+					<span className="loader loader-gray"></span>
+				) : (
+					<section className="flex flex-col gap-3">
+						{users.map((user, i) => {
+							return (
+								<Sellers
+									key={user.id}
+									name={user.nombre_usuario}
+									img={i === 1 ? person02 : person03}
+									position={(i + 1).toString()}
+									cantidad={user.cantidad_vendida}
+									dinero={user.ventas_totales}
+								/>
+							);
+						})}
+					</section>
+				)}
 			</div>
 		</>
 	);
