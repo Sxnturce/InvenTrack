@@ -113,7 +113,7 @@ class Admin {
       const producto = await Producto.getAll()
       res.json(producto)
     } catch (e) {
-      res.status(401).json({ msg: "Error al obtener los productos." })
+      res.status(401).json({ msg: e })
     }
   }
 
