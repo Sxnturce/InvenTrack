@@ -339,7 +339,11 @@ class Admin {
   }
 
   static clearCookie = async (req, res) => {
-    res.clearCookie("access_token").json({ msg: "Logout Successfull" })
+    res.clearCookie("access_token", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    }).json({ msg: "Logout Successful" });
   }
 }
 
