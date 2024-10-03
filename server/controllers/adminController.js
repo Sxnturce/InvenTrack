@@ -18,7 +18,7 @@ class Admin {
     try {
       return res.json({ usuario: user })
     } catch (e) {
-      res.status(401).json({ err: e })
+      res.status(401).json({ err: "Error al intentar cargar el dashboard." })
     }
   }
 
@@ -28,7 +28,7 @@ class Admin {
       const user = await Usuario.comprobateID(id)
       return res.json({ user })
     } catch (e) {
-      res.status(401).json({ err: e })
+      res.status(401).json({ err: "Error al intentar buscar este usuario." })
     }
   }
 
@@ -38,7 +38,7 @@ class Admin {
       const topUserSales = await Usuario.getTop5UsersBySales();
       return res.json({ topUserSales: topUserSales })
     } catch (e) {
-      res.status(401).json({ err: e })
+      res.status(401).json({ err: "Error al intentar obtener el topUser." })
     }
   }
 
@@ -47,7 +47,7 @@ class Admin {
       const topSellProduct = await ProductStats.getTopSellingProduct();
       return res.json({ topSellProduct: topSellProduct })
     } catch (e) {
-      res.status(401).json({ err: e })
+      res.status(401).json({ err: "Error al intentar obtener el topProduct." })
     }
   }
 
@@ -56,7 +56,7 @@ class Admin {
       const topSellType = await TipoStats.getTopSellingType();
       return res.json({ topSellType: topSellType })
     } catch (e) {
-      res.status(401).json({ err: e })
+      res.status(401).json({ err: "Error al intentar obtener el topTipe." })
     }
   }
 
@@ -113,7 +113,7 @@ class Admin {
       const producto = await Producto.getAll()
       res.json(producto)
     } catch (e) {
-      res.status(401).json({ msg: e })
+      res.status(401).json({ msg: "Error al intentar obtener todos los productos." })
     }
   }
 

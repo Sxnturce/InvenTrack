@@ -30,10 +30,8 @@ function Stats() {
 
 				setTopTipe(topSellType);
 				setTopProduct(topSellProduct);
-				setLoading(false);
 			} catch (error) {
-				console.log(error);
-				/* navigate("/", { state: { caduced: true } }); */
+				navigate("/", { state: { caduced: true } });
 			} finally {
 				setLoading(false);
 			}
