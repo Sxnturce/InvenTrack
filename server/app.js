@@ -7,8 +7,6 @@ import pc from "picocolors"
 import cookieParser from "cookie-parser";
 import cors from "cors"
 import corsOptions from "./middlewares/cors.js";
-import path from "path";
-import url from "url";
 
 dotenv.config()
 
@@ -29,18 +27,6 @@ const port = process.env.PORT ?? 4000
 server.listen(port, () => {
   console.log(pc.magenta(`Server listening in URL: ${pc.white(`http://localhost:${port}`)} 🚀`));
 })
-
-
-// Servir archivos estáticos de la carpeta build
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-server.use(express.static(path.join(__dirname, "../client/build")));
-
-// Redirigir todas las demás solicitudes a la pagina principal
-server.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
-});
-
 
 //Middleware para la ruta de la API
 server.use("/api/user/", router)
