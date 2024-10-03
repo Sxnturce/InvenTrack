@@ -28,7 +28,7 @@ class Admin {
       const user = await Usuario.comprobateID(id)
       return res.json({ user })
     } catch (e) {
-      res.status(401).json({ err: "No esta authorizado para realizar esta acción." })
+      res.status(401).json({ err: e })
     }
   }
 
@@ -38,7 +38,7 @@ class Admin {
       const topUserSales = await Usuario.getTop5UsersBySales();
       return res.json({ topUserSales: topUserSales })
     } catch (e) {
-      res.status(401).json({ err: "No esta authorizado para realizar esta acción." })
+      res.status(401).json({ err: e })
     }
   }
 
@@ -47,7 +47,7 @@ class Admin {
       const topSellProduct = await ProductStats.getTopSellingProduct();
       return res.json({ topSellProduct: topSellProduct })
     } catch (e) {
-      res.status(401).json({ err: "No esta authorizado para realizar esta acción." })
+      res.status(401).json({ err: e })
     }
   }
 
@@ -56,7 +56,7 @@ class Admin {
       const topSellType = await TipoStats.getTopSellingType();
       return res.json({ topSellType: topSellType })
     } catch (e) {
-      res.status(401).json({ err: "No esta authorizado para realizar esta acción." })
+      res.status(401).json({ err: e })
     }
   }
 
