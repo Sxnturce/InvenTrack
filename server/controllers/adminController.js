@@ -18,7 +18,7 @@ class Admin {
     try {
       return res.json({ usuario: user })
     } catch (e) {
-      res.status(401).json({ err: "No esta authorizado para realizar esta acción." })
+      res.status(401).json({ err: e })
     }
   }
 
